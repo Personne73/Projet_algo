@@ -33,9 +33,7 @@ class Projet{
         System.out.println("\nM_glouton : " + Mglouton);*/
 
         float[] D = calculerD();
-        for(int i = 0; i < D.length; i++){
-            System.out.print(D[i] + " ");
-        }
+        es(D);
     }
 
     /**
@@ -231,9 +229,7 @@ class Projet{
      * Fonction de l'évaluation statistique
      * es = Evaluation Statistique
      */
-    static void es(int[] D){
-        int n = D.length;
-
+    static void es(float[] D){
         float moyenne = moyenne(D);
         System.out.println("La moyenne des valeurs de D est " + moyenne);
 
@@ -242,7 +238,6 @@ class Projet{
 
         float ecartType = ecartType(D, moyenne);
         System.out.println("L'écart-type des valeurs de D est " + ecartType);
-
     }
 
     /**
@@ -250,7 +245,7 @@ class Projet{
      * @param D le tableau des valeurs de la distance relative entre chaque run
      * @return la moyenne des valeurs du tableau D
      */
-    static float moyenne(int[] D){
+    static float moyenne(float[] D){
         int n = D.length;
 
         // calcul de la moyenne
@@ -269,7 +264,7 @@ class Projet{
      * @param D le tableau des valeurs de la distance relative entre chaque run
      * @return la mediane des valeurs du tableau D
      */
-    static float mediane(int[] D){
+    static float mediane(float[] D){
         int n = D.length;
         Arrays.sort(D); // on classe les valeurs par ordre croissant
 
@@ -291,7 +286,7 @@ class Projet{
      * @param moyenne la moyenne des valeurs du tableau D
      * @return l'écart-type des valeurs du tableau D
      */
-    static float ecartType(int[] D, float moyenne){
+    static float ecartType(float[] D, float moyenne){
         int n = D.length;
 
         // calcul de l'écart-type
