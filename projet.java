@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Random;
 
 /**
  * Classe du projet qui permet la recherche du chemin de somme maximum
@@ -12,20 +13,29 @@ class Projet{
         int[] T = {3, 7, 4, 2, 4, 6, 8, 5, 9, 3};
         // int[] T = {7,5,1,4,2,3};
         
-        List<Integer> lines = treeLine(T);
+        // List<Integer> lines = treeLine(T);
         // System.out.println("Liste des intervalles d'indices : " + lines);
-        //gauche(4);
-        int [] M = calculerM(T);
+        //System.out.println(gauche(7));
+
+        /*int[] M = calculerM(T);
         System.out.print("M : ");
-        for(int i= 0; i<M.length; i++){
+        for(int i = 0; i < M.length; i++){
             System.out.print(M[i] + " ");
         }
         System.out.println("\n");
         List<Integer> line = treeLine(M);
+
         acsm(M, T, 0, T.length);
+
         // System.out.printf("\nNiveau du nombre à l'indice %d : %d\n", 5, ncd(5, T.length));
+
         int Mglouton = calculerMGlouton(T);
-        System.out.println("\nM_glouton : " + Mglouton);
+        System.out.println("\nM_glouton : " + Mglouton);*/
+
+        float[] D = calculerD();
+        for(int i = 0; i < D.length; i++){
+            System.out.print(D[i] + " ");
+        }
     }
 
     /**
@@ -183,6 +193,118 @@ class Projet{
         }
 
         return M;
+    }
+
+    /**
+     * Fonction qui permet de calculer le tableau de la distance relative entre chaque runs
+     * @return le tableau de la distance relative entre chaque runs
+     */
+    static float[] calculerD(){
+        int Lmax = 1000; // nombre de niveaux maximum
+        int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
+        int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
+
+        float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
+        Random random = new Random(); // générateur de nombres aléatoires
+
+        for(int r = 0; r < Nruns; r++){
+            int m = random.nextInt(Lmax + 2) + 1; // choix du nombre de niveaux m de l'arbre au hasard
+            int n = m*(m+1)/2; // nombre de valeurs dans le triangle
+            
+            int[] T = new int[n]; // un tableau d'entiers
+            for(int i = 0; i < n; i++){
+                T[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de T entre 0 et Vmax + 1
+            }
+
+            int[] M = calculerM(T); // calcul de la valeur des chemins de somme maximum
+            float v_etoile = M[0]; // la valeur d'une chemin de somme maximum
+
+            float g = calculerMGlouton(T); // la valeur du chemin glouton
+            //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
+            D[r] = (v_etoile - g) / v_etoile; // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+        }
+        
+        return D; 
+    }
+
+    /**
+     * Fonction de l'évaluation statistique
+     * es = Evaluation Statistique
+     */
+    static void es(int[] D){
+        int n = D.length;
+
+        float moyenne = moyenne(D);
+        System.out.println("La moyenne des valeurs de D est " + moyenne);
+
+        float mediane = mediane(D);
+        System.out.println("La mediane des valeurs de D est " + mediane);
+
+        float ecartType = ecartType(D, moyenne);
+        System.out.println("L'écart-type des valeurs de D est " + ecartType);
+
+    }
+
+    /**
+     * Fonction qui calcule la moyenne des valeurs du tableau D
+     * @param D le tableau des valeurs de la distance relative entre chaque run
+     * @return la moyenne des valeurs du tableau D
+     */
+    static float moyenne(int[] D){
+        int n = D.length;
+
+        // calcul de la moyenne
+        float moyenne = 0;
+
+        for(int i = 0; i < n; i++){
+            moyenne += D[i];
+        }
+
+        moyenne /= n;
+        return moyenne;
+    }
+
+    /**
+     * Fonction qui calcule la mediane des valeurs du tableau D
+     * @param D le tableau des valeurs de la distance relative entre chaque run
+     * @return la mediane des valeurs du tableau D
+     */
+    static float mediane(int[] D){
+        int n = D.length;
+        Arrays.sort(D); // on classe les valeurs par ordre croissant
+
+        // calcul de la mediane
+        float mediane = 0;
+
+        if(n % 2 == 0){ // si le nombre de valeurs est pair
+            mediane = (D[n/2] + D[n/2 - 1]) / 2;
+        } else { // si le nombre de valeurs est impair
+            mediane = D[n/2];
+        }
+
+        return mediane;
+    }
+
+    /**
+     * Fonction qui calcule l'écart-type des valeurs du tableau D
+     * @param D le tableau des valeurs de la distance relative entre chaque run
+     * @param moyenne la moyenne des valeurs du tableau D
+     * @return l'écart-type des valeurs du tableau D
+     */
+    static float ecartType(int[] D, float moyenne){
+        int n = D.length;
+
+        // calcul de l'écart-type
+        float ecartType = 0;
+
+        for(int i = 0; i < n; i++){
+            ecartType += (D[i] - moyenne) * (D[i] - moyenne);
+        }
+
+        ecartType /= n;
+        ecartType = (float) Math.sqrt(ecartType);
+
+        return ecartType;
     }
 
     /**
