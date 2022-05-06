@@ -13,9 +13,9 @@ class Projet{
         int[] T = {3, 7, 4, 2, 4, 6, 8, 5, 9, 3};
         // int[] T = {7,5,1,4,2,3};
         
-        // List<Integer> lines = treeLine(T);
+        List<Integer> lines = treeLine(T);
         // System.out.println("Liste des intervalles d'indices : " + lines);
-        //System.out.println(gauche(7));
+        System.out.println(gauche(4));
 
         /*int[] M = calculerM(T);
         System.out.print("M : ");
@@ -30,10 +30,10 @@ class Projet{
         // System.out.printf("\nNiveau du nombre à l'indice %d : %d\n", 5, ncd(5, T.length));
 
         int Mglouton = calculerMGlouton(T);
-        System.out.println("\nM_glouton : " + Mglouton);*/
+        System.out.println("\nM_glouton : " + Mglouton);
 
         float[] D = calculerD();
-        es(D);
+        es(D);*/
     }
 
     /**
@@ -80,7 +80,7 @@ class Projet{
     static int gauche(int i){
         // le niveau l est le niveau de l'indice i dans l'arbre
         int l = ncs(i);
-        //System.out.printf("Niveau du nombre à l'indice %d : %d\n", i, l);
+        // System.out.printf("Niveau du nombre à l'indice %d : %d\n", i, l);
         
         // la position dans la ligne de l'arbre est la différence entre l'indice i et le nombre de valeurs du triangle de l niveaux
         int p = i - l*(l+1)/2;
