@@ -13,9 +13,9 @@ class Projet{
         int[] T = {3, 7, 4, 2, 4, 6, 8, 5, 9, 3};
         // int[] T = {7,5,1,4,2,3};
         
-        List<Integer> lines = treeLine(T);
+        // List<Integer> lines = treeLine(T);
         // System.out.println("Liste des intervalles d'indices : " + lines);
-        System.out.println(gauche(4));
+        // System.out.println(gauche(4));
 
         /*int[] M = calculerM(T);
         System.out.print("M : ");
@@ -30,10 +30,13 @@ class Projet{
         // System.out.printf("\nNiveau du nombre à l'indice %d : %d\n", 5, ncd(5, T.length));
 
         int Mglouton = calculerMGlouton(T);
-        System.out.println("\nM_glouton : " + Mglouton);
+        System.out.println("\nM_glouton : " + Mglouton);*/
 
         float[] D = calculerD();
-        es(D);*/
+        for(int i = 0; i < D.length; i++){
+            System.out.print(D[i] + " ");
+        }
+        es(D);
     }
 
     /**
@@ -219,7 +222,7 @@ class Projet{
 
             float g = calculerMGlouton(T); // la valeur du chemin glouton
             //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
-            D[r] = (v_etoile - g) / v_etoile; // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+            D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
         }
         
         return D; 
@@ -231,7 +234,7 @@ class Projet{
      */
     static void es(float[] D){
         float moyenne = moyenne(D);
-        System.out.println("La moyenne des valeurs de D est " + moyenne);
+        System.out.println("\nLa moyenne des valeurs de D est " + moyenne);
 
         float mediane = mediane(D);
         System.out.println("La mediane des valeurs de D est " + mediane);
