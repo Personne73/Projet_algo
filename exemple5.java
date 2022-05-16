@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Random;
 
 /**
  * Classe du projet qui permet la recherche du chemin de somme maximum
@@ -24,14 +23,10 @@ class Projet{
         }
         System.out.println("\n");
         List<Integer> line = treeLine(M);
-
         acsm(M, T, 0, T.length);
-
         // System.out.printf("\nNiveau du nombre à l'indice %d : %d\n", 5, ncd(5, T.length));
-
         int Mglouton = calculerMGlouton(T);
         System.out.println("\nM_glouton : " + Mglouton);
-
         float[] D = calculerD();
         es(D);*/
     }
