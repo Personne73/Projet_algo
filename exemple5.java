@@ -26,12 +26,8 @@ class Projet{
         acsm(M, T, 0, T.length);
         // System.out.printf("\nNiveau du nombre à l'indice %d : %d\n", 5, ncd(5, T.length));
         int Mglouton = calculerMGlouton(T);
-<<<<<<< HEAD:exemple5.java
-        System.out.println("\nM_glouton : " + Mglouton);
-=======
         System.out.println("\nM_glouton : " + Mglouton);*/
 
->>>>>>> b747e3bf8a1884de81d1649f5957c47c6fe107b3:projet.java
         float[] D = calculerD();
         for(int i = 0; i < D.length; i++){
             System.out.print(D[i] + " ");
