@@ -1,3 +1,3 @@
 ## Projet Algorithmique 
 
-Comparaison de la stratégie gloutonnes avec les valeurs optimales de la programmation dynamique
+Comparaison de la stratégie gloutonne avec les valeurs optimales de la programmation dynamique
