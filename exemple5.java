@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Classe du projet qui permet la recherche du chemin de somme maximum
@@ -6,7 +7,7 @@ import java.util.*;
 class Projet{
     /**
      * Méthode principale qui permet de lancer le programme
-     * @param Args
+     * @param Args les arguments passés en ligne de commande
      */
     public static void main(String[] Args){
         int[] T = {3, 7, 4, 2, 4, 6, 8, 5, 9, 3};
@@ -299,35 +300,6 @@ class Projet{
         ecartType = (float) Math.sqrt(ecartType);
 
         return ecartType;
-    }
-
-    /**
-     * Fonction qui permet de trouver les lignes de l'arbre et de les avoir dans une liste
-     * elle trace aussi le tableau fourni en paramètre sous forme de triangle
-     * (c'est ma fonction test que j'ai utilisé pour trouver les lignes de l'arbre)
-     * @param T tableau d'entiers
-     */
-    static List treeLine(int [] T){
-        int i = 0, j = 1, cpt = 1;
-        List<Integer> lines = new ArrayList<Integer>();
-        /*lines.add(i);
-        lines.add(j);*/
-        while(j <= T.length){
-            //if (j > T.length) j=T.length;
-            //affichage arbre
-            for(int y = i; y < j; y++){
-                System.out.printf("%d ", T[y]);
-            }
-            System.out.printf("\n");
-            lines.add(i);
-            lines.add(j);
-            cpt++;
-            i = j; 
-            j += cpt;
-        }
-        System.out.println();
-        // System.out.println("Liste des intervalles d'indices : " + lines);
-        return lines;
     }
 
 }
