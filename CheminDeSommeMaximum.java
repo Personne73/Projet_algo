@@ -1,10 +1,14 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /**
  * Classe du projet qui permet la recherche du chemin de somme maximum dans un arbre parfait
  */
 class CheminDeSommeMaximum {
+    
     /**
      * Méthode principale qui permet de lancer le programme
      * @param Args les arguments passés en ligne de commande
@@ -30,9 +34,7 @@ class CheminDeSommeMaximum {
         System.out.println("\nM_glouton : " + Mglouton);*/
 
         float[] D = calculerD();
-        for(int i = 0; i < D.length; i++){
-            System.out.print(D[i] + " ");
-        }
+        csv("Chemin_De_Somme_Maximum.csv", D);
         es(D);
     }
 
@@ -191,6 +193,23 @@ class CheminDeSommeMaximum {
         }
 
         return M;
+    }
+
+    /**
+     * Fonction qui écris les donnés dans un fichier
+     * @param fileName nom du fichier à donner
+     * @param data liste des données
+     */
+    public static void csv(String fileName, float[] data) {
+        try {
+            FileWriter writer = new FileWriter(fileName, true);
+            for (float s : data) {
+                writer.write(s + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
