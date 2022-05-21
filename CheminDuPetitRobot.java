@@ -50,14 +50,55 @@ public class CheminDuPetitRobot {
 		return M;
 	}
 
-	/**
+		/**
 	 * Fonction qui calculer le coût minimum glouton d'un chemin de (0,0) à (l,c)
 	 * @param L le nombre de ligne de la grille
 	 * @param C le nombre de colonne de la grille
 	 * @return le coût minimum glouton d'un chemin de (0,0) à (l,c)
 	 */
 	public static int calculerMGlouton(int L, int C){
-		return 0;
+		/* Initialisation : Mglouton = 0, l = 0, c = 0
+		   Invariant : 0 < l < L ou 0 < c < C MGlouton += ne(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)
+								  	    	  MGlouton += n(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == n(l-1, c, L, C)
+								  	    	  MGlouton += e(l,c,L,C) sinon
+		   Base : l = 0 et c = 0, MGlouton = ne(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C)
+								  MGlouton = n(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C)
+								  MGlouton = e(l,c,L,C) sinon
+		   Condition d'arrêt : l = L-1, c = C-1*/
+
+		int l = 0, c = 0;
+		int MGlouton = 0;
+
+		// base 
+		if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C) ){
+			MGlouton = ne(l,c,L,C);
+			l++; 
+			c++;
+		} else if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C) ){
+			MGlouton = n(l,c,L,C);
+			l++;
+		} else {
+			MGlouton = e(l,c,L,C);
+			c++;
+		}
+		
+		// cas général
+		while( l != L || c != C){
+			if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)){
+					MGlouton += ne(l-1, c-1, L, C);
+					l++;
+					c++;
+				} else if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == n(l-1, c, L, C)){
+						MGlouton += n(l-1, c, L, C);
+						l++;
+					} else {
+						MGlouton += e(l, c-1, L, C);
+						c++;
+					}
+					
+				}
+			
+		return MGlouton;
 	}
 
 	/**
