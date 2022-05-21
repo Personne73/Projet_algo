@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Classe qui permet la résolution de l'exemple 1 du projet en rapport avec le petit robot
@@ -61,8 +63,8 @@ public class CheminDuPetitRobot {
 		   Base : l = 0 et c = 0, MGlouton = ne(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C)
 								  MGlouton = n(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C)
 								  MGlouton = e(l,c,L,C) sinon
-		   Condition d'arrêt : l = L-1, c = C-1*/
-
+		   Condition d'arrêt : l = L-1, c = C-1
+		*/
 		int l = 0, c = 0;
 		int MGlouton = 0;
 
@@ -120,10 +122,27 @@ public class CheminDuPetitRobot {
 
             float g = calculerMGlouton(L, C); // la valeur du chemin glouton
             //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
-            D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+            D[r] = (g - v_etoile) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
         }
         
         return D; 
+    }
+
+	/**
+     * Fonction qui écris les donnés dans un fichier
+     * @param fileName nom du fichier à donner
+     * @param data liste des données
+     */
+    public static void csv(String fileName, float[] data) {
+        try {
+            FileWriter writer = new FileWriter(fileName, true);
+            for (float s : data) {
+                writer.write(s + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
