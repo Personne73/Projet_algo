@@ -28,9 +28,6 @@ public class CheminDuPetitRobot {
 		System.out.printf("Coût minimum d'un chemin glouton de (0,0) à (%d,%d) = %d\n", L-1,C-1, MGlouton);
 
 		float[] D = calculerD();
-        for(int i = 0; i < D.length; i++){
-            System.out.print(D[i] + " ");
-        }
         es(D);
     }
 

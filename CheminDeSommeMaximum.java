@@ -8,6 +8,7 @@ import java.io.IOException;
  * Classe du projet qui permet la recherche du chemin de somme maximum dans un arbre parfait
  */
 class CheminDeSommeMaximum {
+    
     /**
      * Méthode principale qui permet de lancer le programme
      * @param Args les arguments passés en ligne de commande
@@ -33,9 +34,7 @@ class CheminDeSommeMaximum {
         System.out.println("\nM_glouton : " + Mglouton);*/
 
         float[] D = calculerD();
-        /*for(int i = 0; i < D.length; i++){
-            System.out.print(D[i] + " ");
-        }*/
+        csv("Chemin_De_Somme_Maximum.csv", D);
         es(D);
     }
 
