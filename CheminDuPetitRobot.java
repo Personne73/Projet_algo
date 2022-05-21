@@ -114,21 +114,18 @@ public class CheminDuPetitRobot {
         Random random = new Random(); // générateur de nombres aléatoires
 
         for(int r = 0; r < Nruns; r++){
-            int m = random.nextInt(Lmax + 2) + 1; // choix du nombre de niveaux m de l'arbre au hasard
-            int n = m*(m+1)/2; // nombre de valeurs dans le triangle
-            
-            int[] T = new int[n]; // un tableau d'entiers
-            for(int i = 0; i < n; i++){
-                T[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de T entre 0 et Vmax + 1
-            }
+			// nombre de ligne et de colonne de la grille
+            int L = random.nextInt(Lmax + 2) + 1; 
+            int C = random.nextInt(Lmax + 2) + 1; 
 
-            //int[] M = calculerM(T); // calcul de la valeur des chemins de somme maximum
-            //float v_etoile = M[0]; // la valeur d'une chemin de somme maximum
+            int[][] M = calculerM(L, C);
+            float v_etoile = M[L-1][C-1]; 
 
-            //float g = calculerMGlouton(T); // la valeur du chemin glouton
+            float g = calculerMGlouton(L, C); // la valeur du chemin glouton
             //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
-            //D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+            D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
         }
+        
         return D; 
     }
 
