@@ -12,7 +12,7 @@ public class CheminDuPetitRobot {
      * Méthode principale qui permet de lancer le programme
      * @param Args les arguments passés en ligne de commande
      */
-    public static void main(String[] args){
+    public static void main(String[] Args){
         System.out.println("Exercice 6 : le petit robot");
 		int L = 5, C = 7; // grille 5 x 7
 		System.out.printf("Grille à %d lignes et %d colonnes\n",L,C);
@@ -28,9 +28,6 @@ public class CheminDuPetitRobot {
 		System.out.printf("Coût minimum d'un chemin glouton de (0,0) à (%d,%d) = %d\n", L-1,C-1, MGlouton);
 
 		float[] D = calculerD();
-        for(int i = 0; i < D.length; i++){
-            System.out.print(D[i] + " ");
-        }
         es(D);
     }
 
@@ -57,7 +54,48 @@ public class CheminDuPetitRobot {
 	 * @return le coût minimum glouton d'un chemin de (0,0) à (l,c)
 	 */
 	public static int calculerMGlouton(int L, int C){
-		return 0;
+		/* Initialisation : Mglouton = 0, l = 0, c = 0
+		   Invariant : 0 < l < L ou 0 < c < C MGlouton += ne(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)
+								  	    	  MGlouton += n(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == n(l-1, c, L, C)
+								  	    	  MGlouton += e(l,c,L,C) sinon
+		   Base : l = 0 et c = 0, MGlouton = ne(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C)
+								  MGlouton = n(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C)
+								  MGlouton = e(l,c,L,C) sinon
+		   Condition d'arrêt : l = L-1, c = C-1*/
+
+		int l = 0, c = 0;
+		int MGlouton = 0;
+
+		// base
+		if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C) ){
+			MGlouton = ne(l,c,L,C);
+			l++;
+			c++;
+		} else if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C) ){
+			MGlouton = n(l,c,L,C);
+			l++;
+		} else {
+			MGlouton = e(l,c,L,C);
+			c++;
+		}
+
+		// cas général
+		while( l != L || c != C){
+			if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)){
+				MGlouton += ne(l-1, c-1, L, C);
+				l++;
+				c++;
+			} else if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == n(l-1, c, L, C)){
+				MGlouton += n(l-1, c, L, C);
+				l++;
+			} else {
+				MGlouton += e(l, c-1, L, C);
+				c++;
+			}
+
+		}
+
+		return MGlouton;
 	}
 
 	/**
@@ -73,21 +111,18 @@ public class CheminDuPetitRobot {
         Random random = new Random(); // générateur de nombres aléatoires
 
         for(int r = 0; r < Nruns; r++){
-            int m = random.nextInt(Lmax + 2) + 1; // choix du nombre de niveaux m de l'arbre au hasard
-            int n = m*(m+1)/2; // nombre de valeurs dans le triangle
-            
-            int[] T = new int[n]; // un tableau d'entiers
-            for(int i = 0; i < n; i++){
-                T[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de T entre 0 et Vmax + 1
-            }
+			// nombre de ligne et de colonne de la grille
+            int L = random.nextInt(Lmax + 2) + 1; 
+            int C = random.nextInt(Lmax + 2) + 1; 
 
-            //int[] M = calculerM(T); // calcul de la valeur des chemins de somme maximum
-            //float v_etoile = M[0]; // la valeur d'une chemin de somme maximum
+            int[][] M = calculerM(L, C);
+            float v_etoile = M[L-1][C-1]; 
 
-            //float g = calculerMGlouton(T); // la valeur du chemin glouton
+            float g = calculerMGlouton(L, C); // la valeur du chemin glouton
             //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
-            //D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+            D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
         }
+        
         return D; 
     }
 
@@ -212,11 +247,13 @@ public class CheminDuPetitRobot {
 		if (c==0) return 0;
 		return 1;
 	}
+	
 	public static int ne(int l, int c, int L, int C){
 		if (l == L-1 || c == C-1) return plusInfini;
 		if (l==0 && c==0) return 0;
 		return 1;
 	}
+
 	public static int e(int l, int c, int L, int C){
 		if (c == C-1) return plusInfini;
 		if (l == L-1) return 0;
@@ -229,6 +266,7 @@ public class CheminDuPetitRobot {
 		if (y >= z) return y; 
 		return z;
 	}	
+
 	public static int min(int x, int y){ if (x <= y) return x; return y;}
 	public static int min(int x, int y, int z){ if (x <= min(y,z)) return x; 
 		if (y <= z) return y; 
