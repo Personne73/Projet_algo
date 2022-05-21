@@ -12,7 +12,7 @@ public class CheminDuPetitRobot {
      * Méthode principale qui permet de lancer le programme
      * @param Args les arguments passés en ligne de commande
      */
-    public static void main(String[] args){
+    public static void main(String[] Args){
         System.out.println("Exercice 6 : le petit robot");
 		int L = 5, C = 7; // grille 5 x 7
 		System.out.printf("Grille à %d lignes et %d colonnes\n",L,C);
@@ -50,7 +50,7 @@ public class CheminDuPetitRobot {
 		return M;
 	}
 
-		/**
+	/**
 	 * Fonction qui calculer le coût minimum glouton d'un chemin de (0,0) à (l,c)
 	 * @param L le nombre de ligne de la grille
 	 * @param C le nombre de colonne de la grille
@@ -69,10 +69,10 @@ public class CheminDuPetitRobot {
 		int l = 0, c = 0;
 		int MGlouton = 0;
 
-		// base 
+		// base
 		if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C) ){
 			MGlouton = ne(l,c,L,C);
-			l++; 
+			l++;
 			c++;
 		} else if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C) ){
 			MGlouton = n(l,c,L,C);
@@ -81,7 +81,7 @@ public class CheminDuPetitRobot {
 			MGlouton = e(l,c,L,C);
 			c++;
 		}
-		
+
 		// cas général
 		while( l != L || c != C){
 			if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)){
@@ -95,9 +95,9 @@ public class CheminDuPetitRobot {
 						MGlouton += e(l, c-1, L, C);
 						c++;
 					}
-					
+
 				}
-			
+
 		return MGlouton;
 	}
 
