@@ -2,9 +2,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Classe du projet qui permet la recherche du chemin de somme maximum
+ * Classe du projet qui permet la recherche du chemin de somme maximum dans un arbre parfait
  */
-class Projet{
+class CheminDeSommeMaximum {
     /**
      * Méthode principale qui permet de lancer le programme
      * @param Args les arguments passés en ligne de commande
@@ -42,7 +42,7 @@ class Projet{
      * @param i indice de l'élement à traiter
      * @return le niveau de l'indice i
      */
-    static int ncs(int i){
+    public static int ncs(int i){
         // Initialisation : l = 0
         // Invariant : I(l) --> I(l+1)
         // Condition d'arrêt : l*(l+1) / 2 <= i < (l+1)*(l+2) / 2
@@ -59,7 +59,7 @@ class Projet{
      * @param i indice de l'élement à traiter
      * @return le niveau de l'indice i
      */
-    static int ncd(int i, int n){
+    public static int ncd(int i, int n){
         // Initialisation : linf = 0, lsup = n-1
         // Invariant : I(linf, lsup) --> I(linf+1, lsup-1)
         // Condition d'arrêt : linf*(linf+1) / 2 > i ou i >= lsup*(lsup+1) / 2
@@ -77,7 +77,7 @@ class Projet{
      * @param i indice de l'élément à traiter
      * @return l'indice g(i)
      */
-    static int gauche(int i){
+    public static int gauche(int i){
         // le niveau l est le niveau de l'indice i dans l'arbre
         int l = ncs(i);
         // System.out.printf("Niveau du nombre à l'indice %d : %d\n", i, l);
@@ -99,7 +99,7 @@ class Projet{
      * @param i indice de l'élément à traiter
      * @return l'indice d(i)
      */
-    static int droite(int i){
+    public static int droite(int i){
         return gauche(i) + 1;
     }
     
@@ -108,7 +108,7 @@ class Projet{
      * @param T tableau des nombres correspondant à l'arbre
      * @return le tableau des chemins de somme maximum
      */
-    static int[] calculerM(int[] T){
+    public static int[] calculerM(int[] T){
         /*
         Supposons le problème résolu : M[0] = m(0) = T[0] si c'est une feuille, sinon m(0) = T[0] + max(m(gauche(0)), m(droite(0)))
         Généralisons le problème : M[i] = m(i) = T[i] si c'est une feuille, sinon m(i) = T[i] + max(m(gauche(i)), m(droite(i))) pour 0 <= i < n
@@ -143,7 +143,7 @@ class Projet{
      * @param i l'indice à partir duquel on affiche le chemin
      * @param n la taille du triangle T
      */
-    static void acsm(int[] M, int[] T, int i, int n){
+    public static void acsm(int[] M, int[] T, int i, int n){
         // cas de base : i > n, i n'est pas un indice des tableaux T et M (condition d'arrêt)
         if(i > n) return;
         else {
@@ -172,7 +172,7 @@ class Projet{
      * @param T tableau correspondant à l'arbre
      * @return la valeur d'un chemin glouton
      */
-    static int calculerMGlouton(int[] T){
+    public static int calculerMGlouton(int[] T){
         // Initialisation : M = 0, i = 1
         // Invariant : I(M, i) --> I(M+T[i], gauche(i)) si max(T[gauche(i)], T[droite(i)]) = T[gauche(i)]
         //                   sinon I(M+T[i], droite(i)) (max(T[gauche(i)], T[droite(i)]) = T[droite(i)])
@@ -197,7 +197,7 @@ class Projet{
      * Fonction qui permet de calculer le tableau de la distance relative entre chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
-    static float[] calculerD(){
+    public static float[] calculerD(){
         int Lmax = 1000; // nombre de niveaux maximum
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
@@ -229,7 +229,7 @@ class Projet{
      * Fonction de l'évaluation statistique
      * es = Evaluation Statistique
      */
-    static void es(float[] D){
+    public static void es(float[] D){
         float moyenne = moyenne(D);
         System.out.println("\nLa moyenne des valeurs de D est " + moyenne);
 
@@ -245,7 +245,7 @@ class Projet{
      * @param D le tableau des valeurs de la distance relative entre chaque run
      * @return la moyenne des valeurs du tableau D
      */
-    static float moyenne(float[] D){
+    public static float moyenne(float[] D){
         int n = D.length;
 
         // calcul de la moyenne
@@ -264,7 +264,7 @@ class Projet{
      * @param D le tableau des valeurs de la distance relative entre chaque run
      * @return la mediane des valeurs du tableau D
      */
-    static float mediane(float[] D){
+    public static float mediane(float[] D){
         int n = D.length;
         Arrays.sort(D); // on classe les valeurs par ordre croissant
 
@@ -286,7 +286,7 @@ class Projet{
      * @param moyenne la moyenne des valeurs du tableau D
      * @return l'écart-type des valeurs du tableau D
      */
-    static float ecartType(float[] D, float moyenne){
+    public static float ecartType(float[] D, float moyenne){
         int n = D.length;
 
         // calcul de l'écart-type
