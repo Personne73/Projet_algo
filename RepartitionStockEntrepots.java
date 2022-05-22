@@ -56,6 +56,10 @@ public class RepartitionStockEntrepots {
         return new int[][][]{M, A};
     }
 
+    public static int calculerMAGlouton(int[][] G){
+        return 0;
+    }
+
     static void aro(int[][] M, int[][] A, int[][] G){ /* affichage d'une répartition
 	optimale du stock S sur les n entrepôts. G
 	G : tableau des gains (g(i,s) = gain d'une livraison d'un stock s à l'entrepôt i)
