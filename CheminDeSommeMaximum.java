@@ -196,23 +196,6 @@ class CheminDeSommeMaximum {
     }
 
     /**
-     * Fonction qui écris les donnés dans un fichier
-     * @param fileName nom du fichier à donner
-     * @param data liste des données
-     */
-    public static void csv(String fileName, float[] data) {
-        try {
-            FileWriter writer = new FileWriter(fileName, true);
-            for (float s : data) {
-                writer.write(s + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Fonction qui permet de calculer le tableau de la distance relative entre chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
@@ -242,6 +225,23 @@ class CheminDeSommeMaximum {
         }
         
         return D; 
+    }
+
+    /**
+     * Fonction qui écris les donnés dans un fichier
+     * @param fileName nom du fichier à donner
+     * @param data liste des données
+     */
+    public static void csv(String fileName, float[] data) {
+        try {
+            FileWriter writer = new FileWriter(fileName, true);
+            for (float s : data) {
+                writer.write(s + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
