@@ -56,13 +56,8 @@ def histogramme(fileName) :
 	csvfile.close
 
 def main() : 
-	if len(sys.argv) != 2 :
-		print("Usage : python3 histogramme.py fileName")
-		print("Exemple : python3 hystogramme.py DR")
-		return
-	
-	fileName = sys.argv[1]
+	fileName = "Chemin_De_Somme_Maximum"
 	histogramme(fileName)
-	print("l'histogramme est dans le fichier " + fileName+".PNG")
+	print("\nl'histogramme est dans le fichier " + fileName+".PNG")
 
 main()
