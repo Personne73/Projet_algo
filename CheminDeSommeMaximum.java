@@ -35,7 +35,8 @@ class CheminDeSommeMaximum {
 
         float[] D = calculerD();
         csv("Chemin_De_Somme_Maximum.csv", D);
-        es(D);
+        es( D);
+        csv("Chemin_de_somme_maximum.csv", D);
     }
 
     /**
@@ -320,5 +321,4 @@ class CheminDeSommeMaximum {
 
         return ecartType;
     }
-
 }

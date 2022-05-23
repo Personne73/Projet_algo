@@ -8,7 +8,7 @@ public class SacDeValeurMaximum {
     
     /**
      * Méthode principale qui permet de lancer le programme
-     * @param Args les arguments passés en ligne de commande
+     * @param Argv les arguments passés en ligne de commande
      */
     public static void main(String[] Argv){
         int[] V = {2,1,3,8,4}; 
@@ -37,7 +37,7 @@ public class SacDeValeurMaximum {
        System.out.println("\t]");
     }
 
-    public static int somme(int[] T){
+    public static int somme(int[] T){ // Somme des valeurs dans le tableau T
        int s = 0; 
        for (int i = 0; i<T.length; i++) 
            s = s+T[i]; 
