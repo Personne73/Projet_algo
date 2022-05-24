@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.Random;
+
+
 /**
  * Classe qui permet la résolution de l'exemple 2 du projet sur le sac de valeur maximum
  */
