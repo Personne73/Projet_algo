@@ -8,13 +8,9 @@ import java.io.IOException;
  */
 public class CheminDuPetitRobot {
 
-    static final int plusInfini = Integer.MAX_VALUE, moinsInfini = Integer.MIN_VALUE;
+	final int plusInfini = Integer.MAX_VALUE, moinsInfini = Integer.MIN_VALUE;
 
-	/**
-     * Méthode principale qui permet de lancer le programme
-     * @param Args les arguments passés en ligne de commande
-     */
-    public static void main(String[] Args){
+    /*public void main(String[] Args){
         System.out.println("Exercice 6 : le petit robot");
 		int L = 5, C = 7; // grille 5 x 7
 		System.out.printf("Grille à %d lignes et %d colonnes\n",L,C);
@@ -34,7 +30,7 @@ public class CheminDuPetitRobot {
     }
 
     /* Exercice 6 : le petit robot. */
-	public static int[][] calculerM(int L, int C){ // une grille L x C
+	public int[][] calculerM(int L, int C){ // une grille L x C
 		int[][] M = new int[L][C]; // de terme général M[l][c] = m(l,c)
 		// base 
 		M[0][0] = 0;
@@ -55,7 +51,7 @@ public class CheminDuPetitRobot {
 	 * @param C le nombre de colonne de la grille
 	 * @return le coût minimum glouton d'un chemin de (0,0) à (l,c)
 	 */
-	public static int calculerMGlouton(int L, int C){
+	public int calculerMGlouton(int L, int C){
 		/* Initialisation : Mglouton = 0, l = 0, c = 0
 		   Invariant : 0 < l < L ou 0 < c < C MGlouton += ne(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)
 								  	    	  MGlouton += n(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == n(l-1, c, L, C)
@@ -104,7 +100,7 @@ public class CheminDuPetitRobot {
      * Fonction qui permet de calculer le tableau de la distance relative entre chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
-    public static float[] calculerD(){
+    public float[] calculerD(){
         int Lmax = 1000; // nombre de niveaux maximum
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
@@ -222,7 +218,7 @@ public class CheminDuPetitRobot {
         return ecartType;
     }
 
-	public static void accm(int[][] M, int L, int C, int l, int c){
+	public void accm(int[][] M, int L, int C, int l, int c){
 	// affiche un chemin de coût minimimum (ccm) de 0,0 à l,c
 		// condition d'arrêt
 		if (l == 0 && c == 0) {
@@ -260,14 +256,14 @@ public class CheminDuPetitRobot {
 		00 -1-> 10 -0-> ... -0-> (L-1)0 -0-> (L-1)1 -0-> ... -0-> L(L-1)(C-1).
 	Il est de coût 1.
 	*/ 
-	public static int n(int l, int c, int L, int C){
+	public int n(int l, int c, int L, int C){
 		if (l==L-1) return plusInfini;
 		if (l==0 && c==0) return 1;
 		if (c==0) return 0;
 		return 1;
 	}
 	
-	public static int ne(int l, int c, int L, int C){
+	public int ne(int l, int c, int L, int C){
 		if (l == L-1 || c == C-1) return plusInfini;
 		if (l==0 && c==0) return 0;
 		return 1;
@@ -286,13 +282,13 @@ public class CheminDuPetitRobot {
 		return z;
 	}	
 
-	public static int min(int x, int y){ if (x <= y) return x; return y;}
-	public static int min(int x, int y, int z){ if (x <= min(y,z)) return x; 
+	public int min(int x, int y){ if (x <= y) return x; return y;}
+	public int min(int x, int y, int z){ if (x <= min(y,z)) return x;
 		if (y <= z) return y; 
 		return z;
 	}
 
-	public static void afficher(int[][] T){int n = T.length;
+	public void afficher(int[][] T){int n = T.length;
 		for (int i = n-1; i >= 0; i--)
 			System.out.println(Arrays.toString(T[i]));
 	}

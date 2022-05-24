@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Random;
-
 /**
  * Classe qui permet la résolution de l'exemple 2 du projet sur le sac de valeur maximum
  */
@@ -8,7 +7,7 @@ public class SacDeValeurMaximum {
     
     /**
      * Méthode principale qui permet de lancer le programme
-     * @param Args les arguments passés en ligne de commande
+     * @param Argv les arguments passés en ligne de commande
      */
     public static void main(String[] Argv){
         int[] V = {2,1,3,8,4}; 
@@ -83,7 +82,7 @@ public class SacDeValeurMaximum {
         return s;
     }
 
-    public static int max(int x, int y){ 
+    public static int max(int x, int y){
         if (x >= y) return x; 
         return y; 
     }

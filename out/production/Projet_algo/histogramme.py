@@ -11,7 +11,7 @@ Exemple :
 
 Dans ce qui suit, ce fichier est DR.CSV   (CSV = comma separated values)
 
-Ouvrir un terminal Unix ou Linux et se placer dans le rÃ©pertoire qui contient
+Ouvrir un terminal Unix ou Linux et se placer dans le répertoire qui contient
 le fichier DR.CSV
 
 Taper la ligne de commande     
@@ -27,13 +27,13 @@ contenant l'histogramme.
 Vous pouvez donner le nom de fichier que vous voulez. 
 
 Exemple : si le fichier DR_PROBLEME_TRUC_MACHIN.CSV contient les distances relatives
-du problÃ¨me truc machin, la ligne de commande
+du problème truc machin, la ligne de commande
 	python3 histogramme.py DR_PROBLEME_TRUC_MACHIN
-gÃ©nÃ¨re un fichier image 
+génère un fichier image 
     DR_PROBLEME_TRUC_MACHIN.PNG
 contenant l'histogramme.
 
-Exemple d'exÃ©cution dans un terminal Unix : 
+Exemple d'exécution dans un terminal Unix : 
 % python histogramme.py DR_PROBLEME_TRUC_MACHIN
 l'histogramme est dans le fichier DR_PROBLEME_TRUC_MACHIN.PNG
 % 
@@ -43,7 +43,7 @@ import sys
 import csv
 import matplotlib.pyplot as plt
 
-def histogramme(fileName) : 
+"""def histogramme(fileName) : 
 	DR = [] # distances relatives 
 	with open(fileName+".CSV") as csvfile:
 		reader = csv.reader(csvfile)
@@ -53,15 +53,22 @@ def histogramme(fileName) :
 	h = plt.hist(DR,bins=len(DR))
 	plt.savefig(fileName+".PNG")
 	plt.close()
+	csvfile.close"""
+def histogramme(fileName) :
+	DR = [] # distances relatives
+	with open(fileName+".CSV") as csvfile:
+		reader = csv.reader(csvfile)
+		for row in reader:
+			dr = row[0]
+			DR.append(float(dr))
+	plt.ylim(0,15)		# modification suggérée.
+	h = plt.hist(DR,bins=len(DR))
+	plt.savefig(fileName+".PNG")
+	plt.close()
 	csvfile.close
 
-def main() : 
-	if len(sys.argv) != 2 :
-		print("Usage : python3 histogramme.py fileName")
-		print("Exemple : python3 hystogramme.py DR")
-		return
-	
-	fileName = sys.argv[1]
+def main() :
+	fileName = "Chemin_de_somme_maximum"
 	histogramme(fileName)
 	print("l'histogramme est dans le fichier " + fileName+".PNG")
 

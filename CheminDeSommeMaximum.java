@@ -45,7 +45,7 @@ class CheminDeSommeMaximum {
      * @param i indice de l'élement à traiter
      * @return le niveau de l'indice i
      */
-    public static int ncs(int i){
+    public int ncs(int i){
         // Initialisation : l = 0
         // Invariant : I(l) --> I(l+1)
         // Condition d'arrêt : l*(l+1) / 2 <= i < (l+1)*(l+2) / 2
@@ -62,7 +62,7 @@ class CheminDeSommeMaximum {
      * @param i indice de l'élement à traiter
      * @return le niveau de l'indice i
      */
-    public static int ncd(int i, int n){
+    public int ncd(int i, int n){
         // Initialisation : linf = 0, lsup = n-1
         // Invariant : I(linf, lsup) --> I(linf+1, lsup-1)
         // Condition d'arrêt : linf*(linf+1) / 2 > i ou i >= lsup*(lsup+1) / 2
@@ -80,7 +80,7 @@ class CheminDeSommeMaximum {
      * @param i indice de l'élément à traiter
      * @return l'indice g(i)
      */
-    public static int gauche(int i){
+    public int gauche(int i){
         // le niveau l est le niveau de l'indice i dans l'arbre
         int l = ncs(i);
         // System.out.printf("Niveau du nombre à l'indice %d : %d\n", i, l);
@@ -102,7 +102,7 @@ class CheminDeSommeMaximum {
      * @param i indice de l'élément à traiter
      * @return l'indice d(i)
      */
-    public static int droite(int i){
+    public int droite(int i){
         return gauche(i) + 1;
     }
     
@@ -111,7 +111,7 @@ class CheminDeSommeMaximum {
      * @param T tableau des nombres correspondant à l'arbre
      * @return le tableau des chemins de somme maximum
      */
-    public static int[] calculerM(int[] T){
+    public int[] calculerM(int[] T){
         /*
         Supposons le problème résolu : M[0] = m(0) = T[0] si c'est une feuille, sinon m(0) = T[0] + max(m(gauche(0)), m(droite(0)))
         Généralisons le problème : M[i] = m(i) = T[i] si c'est une feuille, sinon m(i) = T[i] + max(m(gauche(i)), m(droite(i))) pour 0 <= i < n
@@ -224,101 +224,7 @@ class CheminDeSommeMaximum {
             //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
             D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
         }
-        
-        return D; 
-    }
 
-    /**
-     * Fonction qui écris les donnés dans un fichier
-     * @param fileName nom du fichier à donner
-     * @param data liste des données
-     */
-    public static void csv(String fileName, float[] data) {
-        try {
-            FileWriter writer = new FileWriter(fileName, true);
-            for (float s : data) {
-                writer.write(s + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Fonction de l'évaluation statistique
-     * es = Evaluation Statistique
-     */
-    public static void es(float[] D){
-        float moyenne = moyenne(D);
-        System.out.println("\nLa moyenne des valeurs de D est " + moyenne);
-
-        float mediane = mediane(D);
-        System.out.println("La mediane des valeurs de D est " + mediane);
-
-        float ecartType = ecartType(D, moyenne);
-        System.out.println("L'écart-type des valeurs de D est " + ecartType);
-    }
-
-    /**
-     * Fonction qui calcule la moyenne des valeurs du tableau D
-     * @param D le tableau des valeurs de la distance relative entre chaque run
-     * @return la moyenne des valeurs du tableau D
-     */
-    public static float moyenne(float[] D){
-        int n = D.length;
-
-        // calcul de la moyenne
-        float moyenne = 0;
-
-        for(int i = 0; i < n; i++){
-            moyenne += D[i];
-        }
-
-        moyenne /= n;
-        return moyenne;
-    }
-
-    /**
-     * Fonction qui calcule la mediane des valeurs du tableau D
-     * @param D le tableau des valeurs de la distance relative entre chaque run
-     * @return la mediane des valeurs du tableau D
-     */
-    public static float mediane(float[] D){
-        int n = D.length;
-        Arrays.sort(D); // on classe les valeurs par ordre croissant
-
-        // calcul de la mediane
-        float mediane = 0;
-
-        if(n % 2 == 0){ // si le nombre de valeurs est pair
-            mediane = (D[n/2] + D[n/2 - 1]) / 2;
-        } else { // si le nombre de valeurs est impair
-            mediane = D[n/2];
-        }
-
-        return mediane;
-    }
-
-    /**
-     * Fonction qui calcule l'écart-type des valeurs du tableau D
-     * @param D le tableau des valeurs de la distance relative entre chaque run
-     * @param moyenne la moyenne des valeurs du tableau D
-     * @return l'écart-type des valeurs du tableau D
-     */
-    public static float ecartType(float[] D, float moyenne){
-        int n = D.length;
-
-        // calcul de l'écart-type
-        float ecartType = 0;
-
-        for(int i = 0; i < n; i++){
-            ecartType += (D[i] - moyenne) * (D[i] - moyenne);
-        }
-
-        ecartType /= n;
-        ecartType = (float) Math.sqrt(ecartType);
-
-        return ecartType;
+        return D;
     }
 }
