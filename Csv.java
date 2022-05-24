@@ -3,7 +3,6 @@ import java.io.IOException;
 
 
 public class Csv {
-
     /**
      * Fonction qui écrit les données dans un fichier csv, une donnée par ligne
      * @param Filename qui est le nom du fichier
