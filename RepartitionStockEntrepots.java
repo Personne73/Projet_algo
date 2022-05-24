@@ -24,7 +24,7 @@ public class RepartitionStockEntrepots {
             System.out.println("tableau M des gains maximum :");
             afficher(M); 
             System.out.println("une affectation optimale :");
-            //aro(M,A,G,K,S);
+            // aro(M,A,G,K,S);
             System.out.println();
     }
 
@@ -73,7 +73,6 @@ public class RepartitionStockEntrepots {
             // sous-ensemble des n premiers entrepôts. Autrement dit : afficher une
             // répartition optimale du stock S sur tous les entrepôts (sans contrainte.)
         }
-
     static void aro(int[][] M, int[][] A, int[][] G, int k, int s){ /* affichage d'une
 		répartition optimale du stock s sur le sous-ensemble des k premiers entrepôts.
 		Notation : ro(k,s) = répartition optimale du stock s sur le sous-ensemble [0:k] */
