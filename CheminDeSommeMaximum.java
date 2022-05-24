@@ -29,11 +29,8 @@ class CheminDeSommeMaximum {
         int Mglouton = calculerMGlouton(T);
         System.out.println("\nM_glouton : " + Mglouton);
 
-        float[] D = calculerD();
-        csv("Chemin_De_Somme_Maximum.csv", D);
-        es( D);
-        csv("Chemin_de_somme_maximum.csv", D);
-    }
+
+    }*/
 
     /**
      * Fonction de recherche séquentielle du niveau l de l'indice i
@@ -196,7 +193,7 @@ class CheminDeSommeMaximum {
      * Fonction qui permet de calculer le tableau de la distance relative entre chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
-    public static float[] calculerD(){
+    public float[] calculerD() {
         int Lmax = 1000; // nombre de niveaux maximum
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
@@ -204,12 +201,12 @@ class CheminDeSommeMaximum {
         float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
         Random random = new Random(); // générateur de nombres aléatoires
 
-        for(int r = 0; r < Nruns; r++){
+        for (int r = 0; r < Nruns; r++) {
             int m = random.nextInt(Lmax + 2) + 1; // choix du nombre de niveaux m de l'arbre au hasard
-            int n = m*(m+1)/2; // nombre de valeurs dans le triangle
-            
+            int n = m * (m + 1) / 2; // nombre de valeurs dans le triangle
+
             int[] T = new int[n]; // un tableau d'entiers
-            for(int i = 0; i < n; i++){
+            for (int i = 0; i < n; i++) {
                 T[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de T entre 0 et Vmax + 1
             }
 
