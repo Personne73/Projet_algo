@@ -20,5 +20,13 @@ public class Main {
         float[] Drobot = robot.calculerD();
         csv.fichierCsv("text_robot", Drobot);
         eval.es(Drobot);
+
+        // Sac de valeur maximum
+
+
+        // Répartition de stock d'entrepôt
+
+
+
     }
 }
