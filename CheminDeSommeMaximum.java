@@ -1,19 +1,15 @@
-import java.util.Arrays;
 import java.util.Random;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 /**
  * Classe du projet qui permet la recherche du chemin de somme maximum dans un arbre parfait
  */
 class CheminDeSommeMaximum {
-    
     /**
      * Méthode principale qui permet de lancer le programme
      * @param Args les arguments passés en ligne de commande
      */
-    public static void main(String[] Args){
+    /*public static void main(String[] Args){
         int[] T = {3, 7, 4, 2, 4, 6, 8, 5, 9, 3};
         // int[] T = {7,5,1,4,2,3};
         
@@ -31,7 +27,7 @@ class CheminDeSommeMaximum {
         acsm(M, T, 0, T.length);
         // System.out.printf("\nNiveau du nombre à l'indice %d : %d\n", 5, ncd(5, T.length));
         int Mglouton = calculerMGlouton(T);
-        System.out.println("\nM_glouton : " + Mglouton);*/
+        System.out.println("\nM_glouton : " + Mglouton);
 
         float[] D = calculerD();
         csv("Chemin_De_Somme_Maximum.csv", D);
@@ -146,7 +142,7 @@ class CheminDeSommeMaximum {
      * @param i l'indice à partir duquel on affiche le chemin
      * @param n la taille du triangle T
      */
-    public static void acsm(int[] M, int[] T, int i, int n){
+    public void acsm(int[] M, int[] T, int i, int n){
         // cas de base : i > n, i n'est pas un indice des tableaux T et M (condition d'arrêt)
         if(i > n) return;
         else {
@@ -175,7 +171,7 @@ class CheminDeSommeMaximum {
      * @param T tableau correspondant à l'arbre
      * @return la valeur d'un chemin glouton
      */
-    public static int calculerMGlouton(int[] T){
+    public int calculerMGlouton(int[] T){
         // Initialisation : M = 0, i = 1
         // Invariant : I(M, i) --> I(M+T[i], gauche(i)) si max(T[gauche(i)], T[droite(i)]) = T[gauche(i)]
         //                   sinon I(M+T[i], droite(i)) (max(T[gauche(i)], T[droite(i)]) = T[droite(i)])

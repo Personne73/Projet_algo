@@ -25,9 +25,7 @@ public class CheminDuPetitRobot {
 		int MGlouton = calculerMGlouton(L, C);
 		System.out.printf("Coût minimum d'un chemin glouton de (0,0) à (%d,%d) = %d\n", L-1,C-1, MGlouton);
 
-		float[] D = calculerD();
-        es(D);
-    }
+    }*/
 
     /* Exercice 6 : le petit robot. */
 	public int[][] calculerM(int L, int C){ // une grille L x C
@@ -124,100 +122,6 @@ public class CheminDuPetitRobot {
         return D; 
     }
 
-	/**
-     * Fonction qui écris les donnés dans un fichier
-     * @param fileName nom du fichier à donner
-     * @param data liste des données
-     */
-    public static void csv(String fileName, float[] data) {
-        try {
-            FileWriter writer = new FileWriter(fileName, true);
-            for (float s : data) {
-                writer.write(s + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Fonction de l'évaluation statistique
-     * es = Évaluation Statistique
-     */
-    public static void es(float[] D){
-        float moyenne = moyenne(D);
-        System.out.println("\nLa moyenne des valeurs de D est " + moyenne);
-
-        float mediane = mediane(D);
-        System.out.println("La médiane des valeurs de D est " + mediane);
-
-        float ecartType = ecartType(D, moyenne);
-        System.out.println("L'écart-type des valeurs de D est " + ecartType);
-    }
-
-    /**
-     * Fonction qui calcule la moyenne des valeurs du tableau D
-     * @param D le tableau des valeurs de la distance relative entre chaque run
-     * @return la moyenne des valeurs du tableau D
-     */
-    public static float moyenne(float[] D){
-        int n = D.length;
-
-        // calcul de la moyenne
-        float moyenne = 0;
-
-        for(int i = 0; i < n; i++){
-            moyenne += D[i];
-        }
-
-        moyenne /= n;
-        return moyenne;
-    }
-
-    /**
-     * Fonction qui calcule la mediane des valeurs du tableau D
-     * @param D le tableau des valeurs de la distance relative entre chaque run
-     * @return la mediane des valeurs du tableau D
-     */
-    public static float mediane(float[] D){
-        int n = D.length;
-        Arrays.sort(D); // on classe les valeurs par ordre croissant
-
-        // calcul de la mediane
-        float mediane = 0;
-
-        if(n % 2 == 0){ // si le nombre de valeurs est pair
-            mediane = (D[n/2] + D[n/2 - 1]) / 2;
-        } else { // si le nombre de valeurs est impair
-            mediane = D[n/2];
-        }
-
-        return mediane;
-    }
-
-    /**
-     * Fonction qui calcule l'écart-type des valeurs du tableau D
-     * @param D le tableau des valeurs de la distance relative entre chaque run
-     * @param moyenne la moyenne des valeurs du tableau D
-     * @return l'écart-type des valeurs du tableau D
-     */
-    public static float ecartType(float[] D, float moyenne){
-        int n = D.length;
-
-        // calcul de l'écart-type
-        float ecartType = 0;
-
-        for(int i = 0; i < n; i++){
-            ecartType += (D[i] - moyenne) * (D[i] - moyenne);
-        }
-
-        ecartType /= n;
-        ecartType = (float) Math.sqrt(ecartType);
-
-        return ecartType;
-    }
-
 	public void accm(int[][] M, int L, int C, int l, int c){
 	// affiche un chemin de coût minimimum (ccm) de 0,0 à l,c
 		// condition d'arrêt
@@ -269,18 +173,11 @@ public class CheminDuPetitRobot {
 		return 1;
 	}
 
-	public static int e(int l, int c, int L, int C){
-		if (c == C-1) return plusInfini;
-		if (l == L-1) return 0;
+	public int e(int l, int c, int L, int C) {
+		if (c == C - 1) return plusInfini;
+		if (l == L - 1) return 0;
 		return 1;
-	}	
-
-    /* fonctions annexe */
-	public static int max(int x, int y){ if (x >= y) return x; return y;}
-	public static int max(int x, int y, int z){ if (x >= max(y,z)) return x; 
-		if (y >= z) return y; 
-		return z;
-	}	
+	}
 
 	public int min(int x, int y){ if (x <= y) return x; return y;}
 	public int min(int x, int y, int z){ if (x <= min(y,z)) return x;
