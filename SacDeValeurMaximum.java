@@ -17,7 +17,7 @@ public class SacDeValeurMaximum {
 		int n = V.length;
 		System.out.println("V = " + Arrays.toString(V));
 		System.out.println("T = " + Arrays.toString(T));
-		int C = 3; System.out.printf("C = %d\n",C);
+		int C = 5; System.out.printf("C = %d\n",C);
 		int[][] M = calculerM(V,T,C); 
 		System.out.println("M = "); 
         afficher(M); 
@@ -48,10 +48,36 @@ public class SacDeValeurMaximum {
                     M[k][c] = max(M[k-1][c], V[k-1]+M[k-1][c-T[k-1]]);
         return M;
     }
-   
-    public static int calculerMGlouton(int[] V, int[] T, int C){
-        return 0;
+
+    public static int calculerMGloutonValeur(int[] V, int[] T, int C){
+        int n = V.length;
+        int v = 0;
+        int j = 0;
+        int c = 0;
+        Triplet[] TabObjets = new Triplet[n];
+
+        // création des objets du sac et on les ajoute dans le tableau de triplets
+        for(int i = 0; i < n; i++) {
+            Triplet vObjet = new Triplet(i, V[i], T[i]);
+            TabObjets[i] = vObjet;
+        }
+
+        QuickSortDisplay qs = new QuickSortDisplay();
+        qs.quickSortDisplay(TabObjets);
+
+        while(c <= C ){
+            if(j > TabObjets.length) return v;
+            if(C-c == 0) return v;
+            if( TabObjets[j].getTaille() <= C-c){
+                c += TabObjets[j].getTaille();
+                v += TabObjets[j].getValeur();
+            }
+            j++;
+        }
+        return v;
     }
+
+
 
     public static void asm(int[][] M, int[] V, int[] T, int k, int c){
     // affichage d'un sac svm(k,c), sac de valeur maximum, de contenance c, contenant un 
@@ -88,5 +114,33 @@ public class SacDeValeurMaximum {
         if (x >= y) return x; 
         return y; 
     }
+
+    /*public float[] calculerD() {
+        int Lmax = 1000; // nombre de niveaux maximum
+        int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
+        int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
+
+        float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
+        Random random = new Random(); // générateur de nombres aléatoires
+
+        for (int r = 0; r < Nruns; r++) {
+            int m = random.nextInt(Lmax + 2) + 1; // choix du nombre de niveaux m de l'arbre au hasard
+            int n = m * (m + 1) / 2; // nombre de valeurs dans le triangle
+
+            int[] T = new int[n]; // un tableau d'entiers
+            for (int i = 0; i < n; i++) {
+                T[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de T entre 0 et Vmax + 1
+            }
+
+            int[] M = calculerM(T); // calcul de la valeur des chemins de somme maximum
+            float v_etoile = M[0]; // la valeur d'une chemin de somme maximum
+
+            float g = calculerMGlouton(T); // la valeur du chemin glouton
+            //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
+            D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+        }
+
+        return D;
+    }*/
 
 }

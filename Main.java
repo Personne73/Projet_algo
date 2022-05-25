@@ -24,6 +24,8 @@ public class Main {
         // Sac de valeur maximum
 
 
+
+
         // Répartition de stock d'entrepôt
 
 
