@@ -12,7 +12,7 @@ public class SacDeValeurMaximum {
      * @param Argv les arguments passés en ligne de commande
      */
     public static void main(String[] Argv){
-        int[] V = {2,1,3,8,4}; 
+        int[] V = {2,1,3,8,4};
 		int[] T = {1,1,2,4,3}; 
 		int n = V.length;
 		System.out.println("V = " + Arrays.toString(V));
@@ -23,11 +23,13 @@ public class SacDeValeurMaximum {
         afficher(M); 
 		System.out.printf("Valeur des sacs de valeur maximum = M[%d][%d] = %d\n",
 			n, C, M[n][C]);
-		System.out.print("Contenu d'un tel sac :\n");
+		//System.out.print("Contenu d'un tel sac :\n");
 		// afficher un sac de contenance C, de valeur max, contenant un sous-ensemble
 		// des n objets
-		asm(M,V,T,n,C); 
-		System.out.println();
+		//asm(M,V,T,n,C);
+		//System.out.println();
+        int v = calculerMGloutonValeur(V, T, C);
+        System.out.print("Valeur glouton max = " + v);
     }
 
     public static int[][] calculerM(int[] V, int[] T, int C){

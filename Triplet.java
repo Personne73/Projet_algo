@@ -21,5 +21,4 @@ public class Triplet {
     public int getTaille(){
         return this.aTaille;
     }
-
 }
