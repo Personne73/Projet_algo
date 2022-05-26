@@ -12,23 +12,22 @@ public class CheminDuPetitRobot {
 	static int NE = 1;
 	static int E = 1;
 
-	final int plusInfini = Integer.MAX_VALUE, moinsInfini = Integer.MIN_VALUE;
+	final int plusInfini = Integer.MAX_VALUE;
 
-    /*public void main(String[] Args){
+    /*public static void main(String[] Args){
         System.out.println("Exercice 6 : le petit robot");
-		int L = 5, C = 7; // grille 5 x 7
+		int L = 1, C = 2; // grille 5 x 7
 		System.out.printf("Grille à %d lignes et %d colonnes\n",L,C);
-		int[][] M = calculerM(L,C);
+		//int[][] M = calculerM(L,C);
 		System.out.println("Tableau M des coûts minimum :");
-		afficher(M);
-		System.out.printf("Coût minimum d'un chemin de (0,0) à (%d,%d) = %d\n",
-			L-1,C-1,M[L-1][C-1]);
-		accm(M,L,C,L-1,C-1); // affichage d'un chemin de coût min de 0,0 à L-1,C-1.
+		//afficher(M);
+		//System.out.printf("Coût minimum d'un chemin de (0,0) à (%d,%d) = %d\n",
+		//	L-1,C-1,M[L-1][C-1]);
+		//accm(M,L,C,L-1,C-1); // affichage d'un chemin de coût min de 0,0 à L-1,C-1.
 		System.out.println();
 
 		int MGlouton = calculerMGlouton(L, C);
 		System.out.printf("Coût minimum d'un chemin glouton de (0,0) à (%d,%d) = %d\n", L-1,C-1, MGlouton);
-
     }*/
 
     /* Exercice 6 : le petit robot. */
@@ -80,7 +79,7 @@ public class CheminDuPetitRobot {
 		}
 
 		// cas général
-		while( l != L || c != C){
+		while( l != L-1 || c != C-1){
 			if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)){
 				MGlouton += ne(l-1, c-1, L, C);
 				l++;

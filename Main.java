@@ -18,7 +18,7 @@ public class Main {
         /*System.out.println("\n\nEvaluation statistique pour le chemin du petit robot : ");
         CheminDuPetitRobot robot = new CheminDuPetitRobot();
         float[] Drobot = robot.calculerD();
-        csv.fichierCsv("robot.csv", Drobot);
+        csv.fichierCsv("Chemin_du_petit_robot.csv", Drobot);
         eval.es(Drobot);*/
 
         // Sac de valeur maximum
@@ -29,7 +29,7 @@ public class Main {
         csv.fichierCsv("Sac_de_valeur_maximum_glouton_par_valeur.csv", Dsac);
         eval.es(Dsac);
 
-        System.out.println("\nStratégie gloutonne par ratios décroissants : ");
+        System.out.println("\nStratégie gloutonne par ratios décroissant : ");
         float[] Dratio = sac.calculerDRatio();
         csv.fichierCsv("Sac_de_valeur_maximum_glouton_par_ratio.csv", Dsac);
         eval.es(Dratio);
