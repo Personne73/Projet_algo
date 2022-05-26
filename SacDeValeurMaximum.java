@@ -80,6 +80,37 @@ public class SacDeValeurMaximum {
     }
 
 
+    // il faut récuperer les valeurs de V et de T pour en faire un ratio mais il faut garder la taille
+    public static int calculerMGloutonRatio(int[] V, int[] T, int C){
+        int n = V.length;
+        int r = 0;
+        int j = 0;
+        int c = 0;
+        Triplet[] TabObjets = new Triplet[n];
+
+        // création des objets du sac et on les ajoute dans le tableau de triplets
+        for(int i = 0; i < n; i++) {
+            Triplet vObjet = new Triplet(i, V[i], T[i]);
+            TabObjets[i] = vObjet;
+        }
+
+        QuickSortDisplay qs = new QuickSortDisplay();
+        qs.quickSortDisplayRatio(TabObjets);
+
+        while(c <= C ){
+            if(j > TabObjets.length) return r;
+            if(C-c == 0) return r;
+            if( TabObjets[j].getTaille() <= C-c){
+                c += TabObjets[j].getTaille();
+                r += TabObjets[j].getRatio();
+            }
+            j++;
+        }
+        return r;
+    }
+
+
+
 
     public static void asm(int[][] M, int[] V, int[] T, int k, int c){
     // affichage d'un sac svm(k,c), sac de valeur maximum, de contenance c, contenant un 

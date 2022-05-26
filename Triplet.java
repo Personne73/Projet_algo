@@ -21,4 +21,6 @@ public class Triplet {
     public int getTaille(){
         return this.aTaille;
     }
+
+    public int getRatio(){return this.aValeur/this.aTaille;}
 }
