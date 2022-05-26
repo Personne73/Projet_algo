@@ -1,8 +1,9 @@
-//Programme quickSort fourni par Monsieur Natowicz mais légèrement modifié
-
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Programme quickSort fourni par Monsieur Natowicz en cours, mais légèrement modifié par nos soins
+ */
 public class QuickSortDisplay {
     public static void quickSortDisplay(Triplet[] T){ int n = T.length;
         int nblancs = 0; // affichage indenté de nblancs

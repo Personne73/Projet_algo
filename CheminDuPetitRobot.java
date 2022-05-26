@@ -8,6 +8,10 @@ import java.io.IOException;
  */
 public class CheminDuPetitRobot {
 
+	static int N = 1;
+	static int NE = 1;
+	static int E = 1;
+
 	final int plusInfini = Integer.MAX_VALUE, moinsInfini = Integer.MIN_VALUE;
 
     /*public void main(String[] Args){
@@ -99,9 +103,12 @@ public class CheminDuPetitRobot {
      * @return le tableau de la distance relative entre chaque runs
      */
     public float[] calculerD(){
-        int Lmax = 1000; // nombre de niveaux maximum
+        int Lmax = 1000; // nombre de ligne maximum
+		int Cmax = 1000; // nombre de colonne maximum
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
-        int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
+        int Nmax = 100;
+		int NEmax = 100;
+		int Emax = 100;
 
         float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
         Random random = new Random(); // générateur de nombres aléatoires
@@ -109,13 +116,17 @@ public class CheminDuPetitRobot {
         for(int r = 0; r < Nruns; r++){
 			// nombre de ligne et de colonne de la grille
             int L = random.nextInt(Lmax + 2) + 1; 
-            int C = random.nextInt(Lmax + 2) + 1; 
+            int C = random.nextInt(Cmax + 2) + 1;
+
+			// choix du coût des directions
+			N = random.nextInt(Nmax + 1);
+			NE = random.nextInt(NEmax + 1);
+			E = random.nextInt(Emax + 1);
 
             int[][] M = calculerM(L, C);
             float v_etoile = M[L-1][C-1]; 
 
             float g = calculerMGlouton(L, C); // la valeur du chemin glouton
-            //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
             D[r] = (g - v_etoile) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
         }
         
@@ -162,21 +173,17 @@ public class CheminDuPetitRobot {
 	*/ 
 	public int n(int l, int c, int L, int C){
 		if (l==L-1) return plusInfini;
-		if (l==0 && c==0) return 1;
-		if (c==0) return 0;
-		return 1;
+		return N;
 	}
 	
 	public int ne(int l, int c, int L, int C){
 		if (l == L-1 || c == C-1) return plusInfini;
-		if (l==0 && c==0) return 0;
-		return 1;
+		return NE;
 	}
 
 	public int e(int l, int c, int L, int C) {
 		if (c == C - 1) return plusInfini;
-		if (l == L - 1) return 0;
-		return 1;
+		return E;
 	}
 
 	public int min(int x, int y){ if (x <= y) return x; return y;}
