@@ -71,16 +71,16 @@ public class SacDeValeurMaximum {
             if(C-c == 0) return val;
             if( TabObjets[j].getTaille() <= C-c){
                 c += TabObjets[j].getTaille();
-                v += TabObjets[j].getValeur();
+                val += TabObjets[j].getValeur();
             }
             j++;
         }
-        return v;
+        return val;
     }
 
 
     // il faut récuperer les valeurs de V et de T pour en faire un ratio mais il faut garder la taille
-    public static int calculerMGloutonRatio(int[] V, int[] T, int C){
+    public int calculerMGloutonRatio(int[] V, int[] T, int C){
         int n = V.length;
         int ratio = 0;
         int j = 0;
@@ -100,32 +100,13 @@ public class SacDeValeurMaximum {
             if(C-c == 0) return ratio;
             if( TabObjets[j].getTaille() <= C-c){
                 c += TabObjets[j].getTaille();
-                r += TabObjets[j].getRatio();
+                ratio += TabObjets[j].getRatio();
             }
             j++;
         }
-        return r;
+        return ratio;
     }
 
-
-
-
-    public static void asm(int[][] M, int[] V, int[] T, int k, int c){
-    // affichage d'un sac svm(k,c), sac de valeur maximum, de contenance c, contenant un 
-    // un sous-ensemble de [0:k]. Appel principal : asm(M,V,T,n,C).
-        if (k == 0) // svm(0,c) est vide. Sans rien faire, il a été affiché.
-            return; // svm(0,c) a été affiché.
-        // ici : k > 0
-        if (M[k][c] == M[k-1][c]) // le k-ème objet n'est pas dans svm(k,c), 
-        // donc svm(k,c) = svm(k-1,c). 
-            asm(M, V, T, k-1, c) ; // svm(k-1,c) a été affiché, donc svm(k,c) a été affiché
-        else {// le k-ème objet est dans le sac. Donc svm(k,c) = svm(k-1,c-t(k-1)) union {k-1}
-            asm(M,V,T,k-1,c-T[k-1]); // svm(k-1,c-t(k-1)) a été affiché
-            System.out.printf("objet, valeur, taille = %d, %d, %d\n",
-               k-1, V[k-1], T[k-1]); // Le k-ème objet été affiché
-            // svm(k-1,c-t(k-1)) union {k-1} a été affiché, donc svm(k,c) a été affiché.
-        }
-    }
 
     public static void afficher(int[][] M){ int n = M.length; // affichage du tableau M.
         System.out.println("\t[");
@@ -134,12 +115,6 @@ public class SacDeValeurMaximum {
         System.out.println("\t]");
     }
 
-    public static int somme(int[] T){
-        int s = 0; 
-        for (int i = 0; i<T.length; i++) 
-            s = s+T[i]; 
-        return s;
-    }
 
     public static int max(int x, int y){
         if (x >= y) return x; 
@@ -156,10 +131,11 @@ public class SacDeValeurMaximum {
         Random random = new Random(); // générateur de nombres aléatoires
 
         for (int r = 0; r < Nruns; r++) {
-            int m = random.nextInt(Lmax + 2) + 1; // choix du nombre de niveaux m de l'arbre au hasard
-            int n = m * (m + 1) / 2; // nombre de valeurs dans le triangle
+            int C = random.nextInt(Cmax + 1);
+            int n = random.nextInt(Nmax + 1);
 
-            int[] T = new int[n]; // un tableau d'entiers
+            int[] V = new int[n];
+            int[] T = new int[n];
             for (int i = 0; i < n; i++) {
                 V[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de V entre 0 et Vmax + 1
                 T[i] = random.nextInt(Tmax + 1);
@@ -168,12 +144,41 @@ public class SacDeValeurMaximum {
             int[][] M = calculerM(V, T, C); // calcul de la valeur des chemins de somme maximum
             float v_etoile = M[n][C]; // la valeur d'une chemin de somme maximum
 
-            float g = calculerMGlouton(T); // la valeur du chemin glouton
-            //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
+            float g = calculerMGloutonValeur(V, T, C); // la valeur du chemin glouton
             D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
         }
 
         return D;
     }
 
+    public float[] calculerDRatio() {
+        int Cmax = 1000; // contenance maximum du sac
+        int Nmax = 1000; // nombre maximum d'objets à l'interieur du sac
+        int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
+        int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
+        int Tmax = 100;
+        float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
+        Random random = new Random(); // générateur de nombres aléatoires
+
+        for (int r = 0; r < Nruns; r++) {
+            int C = random.nextInt(Cmax + 1);
+            int n = random.nextInt(Nmax + 1);
+
+            int[] V = new int[n];
+            int[] T = new int[n];
+            for (int i = 0; i < n; i++) {
+                V[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de V entre 0 et Vmax + 1
+                T[i] = random.nextInt(Tmax + 1);
+            }
+
+            int[][] M = calculerM(V, T, C); // calcul de la valeur des chemins de somme maximum
+            float v_etoile = M[n][C]; // la valeur d'une chemin de somme maximum
+
+            float g = calculerMGloutonRatio(V, T, C); // la valeur du chemin glouton
+            D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+        }
+
+        return D;
+
+    }
 }
