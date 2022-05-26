@@ -21,6 +21,7 @@ public class Main {
         csv.fichierCsv("Chemin_du_petit_robot.csv", Drobot);
         eval.es(Drobot);*/
 
+
         // Sac de valeur maximum
         System.out.println("\n\nEvaluation statistique pour le sac de valeur maximum : ");
         System.out.println("Stratégie gloutonne par valeur décroissante");
@@ -34,9 +35,11 @@ public class Main {
         csv.fichierCsv("Sac_de_valeur_maximum_glouton_par_ratio.csv", Dsac);
         eval.es(Dratio);
 
+
         // Répartition de stock d'entrepôt
 
 
+        // Répartition optimale d'un temps de travail sur un ensemble d'unités
 
     }
 }
