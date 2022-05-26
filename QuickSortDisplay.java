@@ -42,6 +42,7 @@ public class QuickSortDisplay {
 
         return k;
     }
+
     public void quickSortDisplayRatio(Triplet[] T){ int n = T.length;
         int nblancs = 0; // affichage indenté de nblancs
         qsdRatio(T,0,n); // qsd = quicksort display
@@ -81,10 +82,12 @@ public class QuickSortDisplay {
     }
 
     static Random r = new Random(); // utilisé par segmenter(...) et hasard(...)
+
     public int hasard(int i, int j){
         // retourne un indice au hasard dans l'intervalle [i:j]
         return i + r.nextInt(j-i); // nextInt(j-i) est dans [0:j-i]
     }
+    
     public void permuter(Triplet[] T, int i, int j){
         Triplet ti = T[i];
         T[i] = T[j];
