@@ -121,7 +121,6 @@ public class SacDeValeurMaximum {
         System.out.println("\t]");
     }
 
-
     public static int max(int x, int y){
         if (x >= y) return x; 
         return y; 
@@ -201,6 +200,5 @@ public class SacDeValeurMaximum {
         }
 
         return D;
-
     }
 }
