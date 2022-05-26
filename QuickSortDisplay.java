@@ -5,12 +5,12 @@ import java.util.Random;
  * Programme quickSort fourni par Monsieur Natowicz en cours, mais légèrement modifié par nos soins
  */
 public class QuickSortDisplay {
-    public static void quickSortDisplay(Triplet[] T){ int n = T.length;
+    public void quickSortDisplay(Triplet[] T){ int n = T.length;
         int nblancs = 0; // affichage indenté de nblancs
         qsd(T,0,n); // qsd = quicksort display
     }
 
-    public static void qsd(Triplet[] T, int i, int j){
+    public void qsd(Triplet[] T, int i, int j){
         if (j-i < 2) {
             return; // T[i:j] est croissant
         }
@@ -21,7 +21,7 @@ public class QuickSortDisplay {
         // donc T[i:j] croissant.
     }
 
-    public static int segmenter(Triplet[] T, int i, int j){
+    public int segmenter(Triplet[] T, int i, int j){
         // calcule une permutation des valeurs de T[i:j] qui vérifie
         // T[i:k] ≤ T[k:k+1] < T[k+1:j], et retourne l'indice k.
         // I(k,j') : T[i:k] ≤ T[k:k+1] < T[k+1:j']
@@ -42,12 +42,12 @@ public class QuickSortDisplay {
 
         return k;
     }
-    public static void quickSortDisplayRatio(Triplet[] T){ int n = T.length;
+    public void quickSortDisplayRatio(Triplet[] T){ int n = T.length;
         int nblancs = 0; // affichage indenté de nblancs
         qsdRatio(T,0,n); // qsd = quicksort display
     }
 
-    public static void qsdRatio(Triplet[] T, int i, int j){
+    public void qsdRatio(Triplet[] T, int i, int j){
         if (j-i < 2) {
             return; // T[i:j] est croissant
         }
@@ -58,7 +58,7 @@ public class QuickSortDisplay {
         // donc T[i:j] croissant.
     }
 
-    public static int segmenterRatio(Triplet[] T, int i, int j){
+    public int segmenterRatio(Triplet[] T, int i, int j){
         // calcule une permutation des valeurs de T[i:j] qui vérifie
         // T[i:k] ≤ T[k:k+1] < T[k+1:j], et retourne l'indice k.
         // I(k,j') : T[i:k] ≤ T[k:k+1] < T[k+1:j']
@@ -81,11 +81,11 @@ public class QuickSortDisplay {
     }
 
     static Random r = new Random(); // utilisé par segmenter(...) et hasard(...)
-    public static int hasard(int i, int j){
+    public int hasard(int i, int j){
         // retourne un indice au hasard dans l'intervalle [i:j]
         return i + r.nextInt(j-i); // nextInt(j-i) est dans [0:j-i]
     }
-    public static void permuter(Triplet[] T, int i, int j){
+    public void permuter(Triplet[] T, int i, int j){
         Triplet ti = T[i];
         T[i] = T[j];
         T[j] = ti;
@@ -105,7 +105,7 @@ public class QuickSortDisplay {
             A[k] = r.nextInt(n);
         return A;
     }*/
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         {   System.out.println();
             int n = 10;
             Triplet [] T = {new Triplet(0, 5, 2), new Triplet(1, 4, 3), new Triplet(4, 8, 2), new Triplet(2,1234,5)};
@@ -120,5 +120,5 @@ public class QuickSortDisplay {
                 System.out.print(triplet.getValeur() + " ");
             }
         }
-    }
+    }*/
 }

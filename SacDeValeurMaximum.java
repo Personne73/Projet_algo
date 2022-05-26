@@ -6,12 +6,8 @@ import java.util.Random;
  * Classe qui permet la résolution de l'exemple 2 du projet sur le sac de valeur maximum
  */
 public class SacDeValeurMaximum {
-    
-    /**
-     * Méthode principale qui permet de lancer le programme
-     * @param Argv les arguments passés en ligne de commande
-     */
-    public static void main(String[] Argv){
+
+    /*public static void main(String[] Argv){
         int[] V = {2,1,3,8,4};
 		int[] T = {1,1,2,4,3}; 
 		int n = V.length;
@@ -29,8 +25,10 @@ public class SacDeValeurMaximum {
 		//asm(M,V,T,n,C);
 		//System.out.println();
         int v = calculerMGloutonValeur(V, T, C);
-        System.out.print("Valeur glouton max = " + v);
-    }
+        System.out.println("Valeur glouton max = " + v);
+        int ratio = calculerMGloutonRatio(V, T, C);
+        System.out.println("Ratio glouton max = " + ratio);
+    }*/
 
     public static int[][] calculerM(int[] V, int[] T, int C){
         int n = V.length;
@@ -51,9 +49,11 @@ public class SacDeValeurMaximum {
         return M;
     }
 
+    static QuickSortDisplay qs = new QuickSortDisplay();
+
     public static int calculerMGloutonValeur(int[] V, int[] T, int C){
         int n = V.length;
-        int v = 0;
+        int val = 0;
         int j = 0;
         int c = 0;
         Triplet[] TabObjets = new Triplet[n];
@@ -64,12 +64,11 @@ public class SacDeValeurMaximum {
             TabObjets[i] = vObjet;
         }
 
-        QuickSortDisplay qs = new QuickSortDisplay();
         qs.quickSortDisplay(TabObjets);
 
         while(c <= C ){
-            if(j > TabObjets.length) return v;
-            if(C-c == 0) return v;
+            if(j >= TabObjets.length) return val;
+            if(C-c == 0) return val;
             if( TabObjets[j].getTaille() <= C-c){
                 c += TabObjets[j].getTaille();
                 v += TabObjets[j].getValeur();
@@ -83,7 +82,7 @@ public class SacDeValeurMaximum {
     // il faut récuperer les valeurs de V et de T pour en faire un ratio mais il faut garder la taille
     public static int calculerMGloutonRatio(int[] V, int[] T, int C){
         int n = V.length;
-        int r = 0;
+        int ratio = 0;
         int j = 0;
         int c = 0;
         Triplet[] TabObjets = new Triplet[n];
@@ -94,12 +93,11 @@ public class SacDeValeurMaximum {
             TabObjets[i] = vObjet;
         }
 
-        QuickSortDisplay qs = new QuickSortDisplay();
         qs.quickSortDisplayRatio(TabObjets);
 
         while(c <= C ){
-            if(j > TabObjets.length) return r;
-            if(C-c == 0) return r;
+            if(j >= TabObjets.length) return ratio;
+            if(C-c == 0) return ratio;
             if( TabObjets[j].getTaille() <= C-c){
                 c += TabObjets[j].getTaille();
                 r += TabObjets[j].getRatio();
@@ -148,11 +146,12 @@ public class SacDeValeurMaximum {
         return y; 
     }
 
-    /*public float[] calculerD() {
-        int Lmax = 1000; // nombre de niveaux maximum
+    public float[] calculerDValeur() {
+        int Cmax = 1000; // contenance maximum du sac
+        int Nmax = 1000; // nombre maximum d'objets à l'interieur du sac
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
-
+        int Tmax = 100;
         float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
         Random random = new Random(); // générateur de nombres aléatoires
 
@@ -162,11 +161,12 @@ public class SacDeValeurMaximum {
 
             int[] T = new int[n]; // un tableau d'entiers
             for (int i = 0; i < n; i++) {
-                T[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de T entre 0 et Vmax + 1
+                V[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de V entre 0 et Vmax + 1
+                T[i] = random.nextInt(Tmax + 1);
             }
 
-            int[] M = calculerM(T); // calcul de la valeur des chemins de somme maximum
-            float v_etoile = M[0]; // la valeur d'une chemin de somme maximum
+            int[][] M = calculerM(V, T, C); // calcul de la valeur des chemins de somme maximum
+            float v_etoile = M[n][C]; // la valeur d'une chemin de somme maximum
 
             float g = calculerMGlouton(T); // la valeur du chemin glouton
             //System.out.println("v_etoile = " + v_etoile + " g = " + g + "\n");
@@ -174,6 +174,6 @@ public class SacDeValeurMaximum {
         }
 
         return D;
-    }*/
+    }
 
 }

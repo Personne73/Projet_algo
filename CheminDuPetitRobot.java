@@ -127,40 +127,11 @@ public class CheminDuPetitRobot {
             float v_etoile = M[L-1][C-1]; 
 
             float g = calculerMGlouton(L, C); // la valeur du chemin glouton
-            D[r] = (g - v_etoile) / (1 + v_etoile); // la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton
+            D[r] = (g - v_etoile) / (1 + v_etoile);
         }
         
         return D; 
     }
-
-	public void accm(int[][] M, int L, int C, int l, int c){
-	// affiche un chemin de coût minimimum (ccm) de 0,0 à l,c
-		// condition d'arrêt
-		if (l == 0 && c == 0) {
-			System.out.printf("(0,0)"); // le ccm de 0,0 à 0,0 est affiché
-			return;
-		} else if (l==0){
-			accm(M, L, C, l-1, c);
-			System.out.printf(" -%d-> (%d,%d)", e(l, c-1, L, C), l, c);
-		} else if (c == 0) {
-			accm(M, L, C, l-1, c);
-			System.out.printf(" -%d-> (%d,%d)", n(l-1, c, L, C), l, c);
-		} else {
-			int n = n(l-1, c, L, C), ne = ne(l-1, c-1, L, C), e = e(l, c-1, L, C);
-			int Mn = M[l-1][c] + n, Mne = M[l-1][c-1] + ne, Me = M[l][c-1] + e;
-			if (Mn == min(Mn, Mne, Me)){
-				accm(M, L, C, l-1, c);
-				System.out.printf(" -%d-> (%d,%d)", n, l, c);
-			} else if (Mne == min(Mn, Mne, Me)){
-				accm(M, L, C, l-1, c-1);
-				System.out.printf(" -%d-> (%d,%d)", ne, l, c);
-			} else {
-				accm(M, L, C, l, c-1);
-				System.out.printf(" -%d-> (%d,%d)", e, l, c);
-			}
-		}
-	
-	}
 
     /* Fonctions de coût des déplacements.
 	1) depuis la case 00, les déplacements N et E coûtent 1, le déplacement NE coûte 0.

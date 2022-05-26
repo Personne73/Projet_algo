@@ -67,9 +67,10 @@ def histogramme(fileName) :
 	plt.close()
 	csvfile.close
 
-def main() :
-	fileName = "Chemin_de_somme_maximum"
-	histogramme(fileName)
-	print("l'histogramme est dans le fichier " + fileName+".PNG")
+
+def main():
+    fileName = "Sac_de_valeur_maximum_glouton_par_ratio"
+    histogramme(fileName)
+    print("l'histogramme est dans le fichier " + fileName + ".PNG")
 
 main()
