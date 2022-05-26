@@ -11,7 +11,7 @@ Exemple :
 
 Dans ce qui suit, ce fichier est DR.CSV   (CSV = comma separated values)
 
-Ouvrir un terminal Unix ou Linux et se placer dans le répertoire qui contient
+Ouvrir un terminal Unix ou Linux et se placer dans le rï¿½pertoire qui contient
 le fichier DR.CSV
 
 Taper la ligne de commande     
@@ -27,19 +27,18 @@ contenant l'histogramme.
 Vous pouvez donner le nom de fichier que vous voulez. 
 
 Exemple : si le fichier DR_PROBLEME_TRUC_MACHIN.CSV contient les distances relatives
-du problème truc machin, la ligne de commande
+du problï¿½me truc machin, la ligne de commande
 	python3 histogramme.py DR_PROBLEME_TRUC_MACHIN
-génère un fichier image 
+gï¿½nï¿½re un fichier image 
     DR_PROBLEME_TRUC_MACHIN.PNG
 contenant l'histogramme.
 
-Exemple d'exécution dans un terminal Unix : 
+Exemple d'exï¿½cution dans un terminal Unix : 
 % python histogramme.py DR_PROBLEME_TRUC_MACHIN
 l'histogramme est dans le fichier DR_PROBLEME_TRUC_MACHIN.PNG
 % 
 
 """
-import sys
 import csv
 import matplotlib.pyplot as plt
 
@@ -51,15 +50,15 @@ def histogramme(fileName):
         for row in reader:
             dr = row[0]
             DR.append(float(dr))
-    plt.ylim(0, 15)		# modification suggérée.
+    plt.ylim(0, 15)		# modification suggï¿½rï¿½e.
     h = plt.hist(DR, bins=len(DR))
     plt.savefig(fileName + ".PNG")
     plt.close()
-    csvfile.close
-
+    csvfile.close()
+    
 
 def main():
-    fileName = "Sac_de_valeur_maximum_glouton_par_ratio"
+    fileName = "Chemin_du_petit_robot"
     histogramme(fileName)
     print("l'histogramme est dans le fichier " + fileName + ".PNG")
 
