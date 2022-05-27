@@ -171,7 +171,7 @@ class CheminDeSommeMaximum {
     public int calculerMGlouton(int[] T){
         // Initialisation : M = 0, i = 1
         // Invariant : I(M, i) --> I(M+T[i], gauche(i)) si max(T[gauche(i)], T[droite(i)]) = T[gauche(i)]
-        //                   sinon I(M+T[i], droite(i)) (max(T[gauche(i)], T[droite(i)]) = T[droite(i)])
+        //                   sinon I(M+T[i], droite(i)) si max(T[gauche(i)], T[droite(i)]) = T[droite(i)]
         // Condition d'arrêt : i > T.length
         int n = T.length;
         int M = 0;

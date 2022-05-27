@@ -7,9 +7,9 @@ public class RepartitionStockEntrepots {
         System.out.println("Exercice 3 : répartition optimale d'un stock");
         int[][] G = new int[][] // g(k,s) = gain obtenu d'une livraison 
         // d'une quantité de stock s à l'entrepôt k
-            {	{ 0, 5, 5, 7, 7,10,10,12,12,13,13}, // 
-                { 0, 8,10,10,10,12,12,14,14,14,14},
-                {0,10,10,12,12,13,13,14,15,16,16},
+            /*{	{0, 5, 5, 7, 7,10,10,12,12,13,13}, //
+                {0, 8,10,10,10,12,12,14,14,14,14},
+                {0, 10,10,12,12,13,13,14,15,16,16},
                 {0,14,14,14,16,16,16,16,16,16,16},
                 {0,10,14,14,14,14,14,14,14,16,16},
                 {0,10,12,12,16,16,16,16,16,16,16},
@@ -27,7 +27,9 @@ public class RepartitionStockEntrepots {
             System.out.printf("gain total maximum : %d\n", M[K][S]);
             System.out.println("tableau M des gains maximum :");
             afficher(M); 
-            System.out.println("une affectation optimale :");
+            //System.out.println("une affectation optimale :");
+            int g = calculerMAGlouton(G);
+            System.out.println("gain max glouton : " + g);
             // aro(M,A,G,K,S);
             System.out.println();
     }
@@ -60,8 +62,42 @@ public class RepartitionStockEntrepots {
         return new int[][][]{M, A};
     }
 
-    public static int calculerMAGlouton(int[][] G){
-        return 0;
+    public static int calculerMAGlouton(int[][] G) {
+        int n = G.length; // nombre entrepot
+        int S = G[0].length; // stock max d'un entrepot
+        int MGlouton = 0;
+        int[] Sauvegarde = new int[n];
+
+        int maximum = G[0][1];
+        int j = 0;
+        /*for(int i = 1; i<n; i++){
+            if(G[i][1] > maximum){
+                maximum = G[i][1];
+                j = i;
+            }
+        }
+        Sauvegarde[j] += 1;
+        MGlouton += maximum;*/
+
+        int e = 1;
+        while(S != 0) {
+            Arrays.sort(Sauvegarde);
+            if(Sauvegarde[0] == Sauvegarde[n-1]) e++;
+            for(int i = 1; i < n; i++) {
+                if(Sauvegarde[i] >= S) return MGlouton;
+                if (G[i][Sauvegarde[i]] >= G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]]) {
+                    maximum = G[i][1];
+                    j = i;
+                }
+
+            }
+            //if(maximum == 0) Sauvegarde[j] += 1;
+            Sauvegarde[j] += 1;
+            MGlouton += maximum;
+            S--;
+        }
+
+        return MGlouton;
     }
 
     static void aro(int[][] M, int[][] A, int[][] G){ /* affichage d'une répartition

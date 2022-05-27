@@ -29,8 +29,7 @@ public class SacDeValeurMaximum {
         int ratio = calculerMGloutonRatio(V, T, C);
         System.out.println("Ratio glouton max = " + ratio);
     }*/
-
-    public static int[][] calculerM(int[] V, int[] T, int C){
+    public int[][] calculerM(int[] V, int[] T, int C){
         int n = V.length;
         // Retourne M[0:n+1][0:C+1], de terme général M[k][c] = m(k,c)
         int[][] M = new int[n+1][C+1];
@@ -77,6 +76,9 @@ public class SacDeValeurMaximum {
      * @return val La valeur du sac lorsque sa contenance est maximale.
      */
     public int calculerMGloutonValeur(int[] V, int[] T, int C){
+        // Initialisation : val = 0, j = 0, c = 0
+        // Invariant : I(val, j, c) --> I(val + TabObjets[j].getValeur(), j+1, c + TabObjets[j].getTaille())
+        // Condition d'arrêt : c > C
         int val = 0;
         int j = 0;
         int c = 0;
@@ -86,7 +88,7 @@ public class SacDeValeurMaximum {
 
         qs.quickSortDisplay(TabObjets);
 
-        while(c <= C ){
+        while(c <= C){
             if(j >= TabObjets.length) return val;
             if(C-c == 0) return val;
             if( TabObjets[j].getTaille() <= C-c){
@@ -107,6 +109,9 @@ public class SacDeValeurMaximum {
      */
     // il faut récuperer les valeurs de V et de T pour en faire un ratio mais il faut garder la taille
     public int calculerMGloutonRatio(int[] V, int[] T, int C){
+        // Initialisation : ratio = 0, j = 0, c = 0
+        // Invariant : I(val, j, c) --> I(ratio + TabObjets[j].getRatio(), j+1, c + TabObjets[j].getTaille())
+        // Condition d'arrêt : c > C
         int ratio = 0;
         int j = 0;
         int c = 0;
@@ -116,7 +121,7 @@ public class SacDeValeurMaximum {
 
         qs.quickSortDisplayRatio(TabObjets);
 
-        while(c <= C ){
+        while(c <= C){
             if(j >= TabObjets.length) return ratio;
             if(C-c == 0) return ratio;
             if( TabObjets[j].getTaille() <= C-c){
@@ -129,14 +134,14 @@ public class SacDeValeurMaximum {
     }
 
 
-    public static void afficher(int[][] M){ int n = M.length; // affichage du tableau M.
+    public void afficher(int[][] M){ int n = M.length; // affichage du tableau M.
         System.out.println("\t[");
         for (int i = n-1; i>=0; i--) 
             System.out.println("\t\t" + Arrays.toString(M[i]));
         System.out.println("\t]");
     }
 
-    public static int max(int x, int y){
+    public int max(int x, int y){
         if (x >= y) return x; 
         return y; 
     }
