@@ -51,18 +51,30 @@ public class SacDeValeurMaximum {
 
     static QuickSortDisplay qs = new QuickSortDisplay();
 
-    public static int calculerMGloutonValeur(int[] V, int[] T, int C){
+    /**
+     * Fonction qui crée un tableau de Triplet et ajoute les objets dans le tableau
+     * @param V le tableau de valeurs
+     * @param T le tableau de taille
+     * @return le tableau de triplet
+     */
+    public Triplet[] tableauTriplet(int[] V, int[] T){
         int n = V.length;
+        Triplet[] triplet = new Triplet[n];
+        for(int i = 0; i < n; i++) {
+            Triplet vObjet = new Triplet(i, V[i], T[i]);
+            triplet[i] = vObjet;
+        }
+
+        return triplet;
+    }
+
+    public int calculerMGloutonValeur(int[] V, int[] T, int C){
         int val = 0;
         int j = 0;
         int c = 0;
-        Triplet[] TabObjets = new Triplet[n];
 
-        // création des objets du sac et on les ajoute dans le tableau de triplets
-        for(int i = 0; i < n; i++) {
-            Triplet vObjet = new Triplet(i, V[i], T[i]);
-            TabObjets[i] = vObjet;
-        }
+        // création des objets du sac qu'on ajoute dans le tableau de triplets
+        Triplet[] TabObjets = tableauTriplet(V, T);
 
         qs.quickSortDisplay(TabObjets);
 
@@ -78,20 +90,14 @@ public class SacDeValeurMaximum {
         return val;
     }
 
-
     // il faut récuperer les valeurs de V et de T pour en faire un ratio mais il faut garder la taille
     public int calculerMGloutonRatio(int[] V, int[] T, int C){
-        int n = V.length;
         int ratio = 0;
         int j = 0;
         int c = 0;
-        Triplet[] TabObjets = new Triplet[n];
 
-        // création des objets du sac et on les ajoute dans le tableau de triplets
-        for(int i = 0; i < n; i++) {
-            Triplet vObjet = new Triplet(i, V[i], T[i]);
-            TabObjets[i] = vObjet;
-        }
+        // création des objets du sac qu'on ajoute dans le tableau de triplets
+        Triplet[] TabObjets = tableauTriplet(V, T);
 
         qs.quickSortDisplayRatio(TabObjets);
 
@@ -115,10 +121,25 @@ public class SacDeValeurMaximum {
         System.out.println("\t]");
     }
 
-
     public static int max(int x, int y){
         if (x >= y) return x; 
         return y; 
+    }
+
+    /**
+     * Fonction qui permet de définir au hasard la taille maximale d'un objet
+     * @param C la contenance du sac
+     * @param n le nombre d'objets présents dans le sac
+     * @return la taille maximale d'un objet
+     */
+    public int Tmax(int C, int n){
+        int Tmax = 0;
+        int[] T = new int[n];
+        for(int i = 0; i < n; i++){
+            T[i] = (int)(Math.random()*(C+1));
+            if(T[i] > Tmax) Tmax = T[i];
+        }
+        return Tmax;
     }
 
     public float[] calculerDValeur() {
@@ -179,6 +200,5 @@ public class SacDeValeurMaximum {
         }
 
         return D;
-
     }
 }

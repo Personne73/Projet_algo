@@ -16,7 +16,7 @@ public class CheminDuPetitRobot {
 
     /*public static void main(String[] Args){
         System.out.println("Exercice 6 : le petit robot");
-		int L = 1, C = 2; // grille 5 x 7
+		int L = 12, C = 39; // grille 5 x 7
 		System.out.printf("Grille à %d lignes et %d colonnes\n",L,C);
 		//int[][] M = calculerM(L,C);
 		System.out.println("Tableau M des coûts minimum :");
@@ -53,45 +53,34 @@ public class CheminDuPetitRobot {
 	 * @return le coût minimum glouton d'un chemin de (0,0) à (l,c)
 	 */
 	public int calculerMGlouton(int L, int C){
-		/* Initialisation : Mglouton = 0, l = 0, c = 0
-		   Invariant : 0 < l < L ou 0 < c < C MGlouton += ne(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)
-								  	    	  MGlouton += n(l,c,L,C) si min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == n(l-1, c, L, C)
-								  	    	  MGlouton += e(l,c,L,C) sinon
-		   Base : l = 0 et c = 0, MGlouton = ne(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C)
-								  MGlouton = n(l,c,L,C) si min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C)
-								  MGlouton = e(l,c,L,C) sinon
-		   Condition d'arrêt : l = L-1, c = C-1
-		*/
-		int l = 0, c = 0;
-		int MGlouton = 0;
+		// Initialisation : Mglouton = 0, l = 0, c = 0
+		// Base : l = 0 et c = 0, MGlouton = min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C))
+		// Invariant : 0 < l < L ou 0 < c < C MGlouton += min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C))
+		// Condition d'arrêt : l >= L-1 ou c >= C-1
+		int l = 0, c = 0, MGlouton;
 
 		// base
+		MGlouton = min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C));
 		if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == ne(l,c,L,C) ){
-			MGlouton = ne(l,c,L,C);
 			l++;
 			c++;
 		} else if( min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C)) == n(l,c,L,C) ){
-			MGlouton = n(l,c,L,C);
 			l++;
 		} else {
-			MGlouton = e(l,c,L,C);
 			c++;
 		}
 
 		// cas général
-		while( l != L-1 || c != C-1){
+		while( l < L-1 || c < C-1){
+			MGlouton += min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C));
 			if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == ne(l-1, c-1, L, C)){
-				MGlouton += ne(l-1, c-1, L, C);
 				l++;
 				c++;
 			} else if(min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C)) == n(l-1, c, L, C)){
-				MGlouton += n(l-1, c, L, C);
 				l++;
 			} else {
-				MGlouton += e(l, c-1, L, C);
 				c++;
 			}
-
 		}
 
 		return MGlouton;
@@ -113,7 +102,7 @@ public class CheminDuPetitRobot {
         Random random = new Random(); // générateur de nombres aléatoires
 
         for(int r = 0; r < Nruns; r++){
-			// nombre de ligne et de colonne de la grille
+			// nombre de lignes et de colonnes de la grille
             int L = random.nextInt(Lmax + 2) + 1; 
             int C = random.nextInt(Cmax + 2) + 1;
 
@@ -123,9 +112,10 @@ public class CheminDuPetitRobot {
 			E = random.nextInt(Emax + 1);
 
             int[][] M = calculerM(L, C);
-            float v_etoile = M[L-1][C-1]; 
+            float v_etoile = M[L-1][C-1];
 
             float g = calculerMGlouton(L, C); // la valeur du chemin glouton
+
             D[r] = (g - v_etoile) / (1 + v_etoile);
         }
         
