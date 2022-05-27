@@ -43,33 +43,29 @@ import sys
 import csv
 import matplotlib.pyplot as plt
 
-"""def histogramme(fileName) : 
-	DR = [] # distances relatives 
-	with open(fileName+".CSV") as csvfile:
-		reader = csv.reader(csvfile)
-		for row in reader:
-			dr = row[0]
-			DR.append(float(dr))
-	h = plt.hist(DR,bins=len(DR))
-	plt.savefig(fileName+".PNG")
-	plt.close()
-	csvfile.close"""
-def histogramme(fileName) :
-	DR = [] # distances relatives
-	with open(fileName+".CSV") as csvfile:
-		reader = csv.reader(csvfile)
-		for row in reader:
-			dr = row[0]
-			DR.append(float(dr))
-	plt.ylim(0,15)		# modification suggérée.
-	h = plt.hist(DR,bins=len(DR))
-	plt.savefig(fileName+".PNG")
-	plt.close()
-	csvfile.close
 
-def main() :
-	fileName = "Chemin_de_somme_maximum"
-	histogramme(fileName)
-	print("l'histogramme est dans le fichier " + fileName+".PNG")
+def histogramme(fileName):
+    DR = []  # distances relatives
+    with open(fileName + ".CSV") as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            dr = row[0]
+            DR.append(float(dr))
+    plt.ylim(0, 15)		# modification suggérée.
+    h = plt.hist(DR, bins=len(DR))
+    plt.savefig(fileName + ".PNG")
+    plt.close()
+    csvfile.close
+
+
+def main():
+    fileName = "Sac_de_valeur_maximum_glouton_par_ratio"
+    histogramme(fileName)
+    print("l'histogramme est dans le fichier " + fileName + ".PNG")
+
+    fileNam = "Sac_de_valeur_maximum_glouton_par_valeur"
+    histogramme(fileNam)
+    print("l'histogramme est dans le fichier " + fileNam + ".PNG")
+
 
 main()

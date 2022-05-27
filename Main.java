@@ -31,7 +31,7 @@ public class Main {
 
         System.out.println("\nStratégie gloutonne par ratios décroissant : ");
         float[] Dratio = sac.calculerDRatio();
-        csv.fichierCsv("Sac_de_valeur_maximum_glouton_par_ratio.csv", Dsac);
+        csv.fichierCsv("Sac_de_valeur_maximum_glouton_par_ratio.csv", Dratio);
         eval.es(Dratio);
 
         // Répartition de stock d'entrepôt
