@@ -13,7 +13,7 @@ public class SacDeValeurMaximum {
 		int n = V.length;
 		System.out.println("V = " + Arrays.toString(V));
 		System.out.println("T = " + Arrays.toString(T));
-		int C = 5; System.out.printf("C = %d\n",C);
+		int C = 8; System.out.printf("C = %d\n",C);
 		int[][] M = calculerM(V,T,C); 
 		System.out.println("M = "); 
         afficher(M); 
@@ -26,7 +26,7 @@ public class SacDeValeurMaximum {
 		//System.out.println();
         int v = calculerMGloutonValeur(V, T, C);
         System.out.println("Valeur glouton max = " + v);
-        int ratio = calculerMGloutonRatio(V, T, C);
+        float ratio = calculerMGloutonRatio(V, T, C);
         System.out.println("Ratio glouton max = " + ratio);
     }*/
     public int[][] calculerM(int[] V, int[] T, int C){
@@ -108,11 +108,11 @@ public class SacDeValeurMaximum {
      * @return ratio La valeur maximale du ratio des objets contenus dans le sac.
      */
     // il faut récuperer les valeurs de V et de T pour en faire un ratio mais il faut garder la taille
-    public int calculerMGloutonRatio(int[] V, int[] T, int C){
+    public float calculerMGloutonRatio(int[] V, int[] T, int C){
         // Initialisation : ratio = 0, j = 0, c = 0
         // Invariant : I(val, j, c) --> I(ratio + TabObjets[j].getRatio(), j+1, c + TabObjets[j].getTaille())
         // Condition d'arrêt : c > C
-        int ratio = 0;
+        float ratio = 0;
         int j = 0;
         int c = 0;
 
@@ -171,6 +171,7 @@ public class SacDeValeurMaximum {
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
         int Tmax = 100;
+
         float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
         Random random = new Random(); // générateur de nombres aléatoires
 
@@ -182,7 +183,7 @@ public class SacDeValeurMaximum {
             int[] T = new int[n];
             for (int i = 0; i < n; i++) {
                 V[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de V entre 0 et Vmax + 1
-                T[i] = random.nextInt(Tmax + 1);
+                T[i] = random.nextInt(Tmax + 2) + 1;
             }
 
             int[][] M = calculerM(V, T, C); // calcul de la valeur des chemins de somme maximum
@@ -204,6 +205,7 @@ public class SacDeValeurMaximum {
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
         int Tmax = 100;
+
         float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
         Random random = new Random(); // générateur de nombres aléatoires
 
@@ -215,7 +217,7 @@ public class SacDeValeurMaximum {
             int[] T = new int[n];
             for (int i = 0; i < n; i++) {
                 V[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de V entre 0 et Vmax + 1
-                T[i] = random.nextInt(Tmax + 1);
+                T[i] = random.nextInt(Tmax + 2) + 1;
             }
 
             int[][] M = calculerM(V, T, C); // calcul de la valeur des chemins de somme maximum

@@ -7,18 +7,19 @@ public class RepartitionStockEntrepots {
         System.out.println("Exercice 3 : répartition optimale d'un stock");
         int[][] G = new int[][] // g(k,s) = gain obtenu d'une livraison 
         // d'une quantité de stock s à l'entrepôt k
-            /*{	{0, 5, 5, 7, 7,10,10,12,12,13,13}, //
+           /* {	{0, 5, 5, 7, 7,10,10,12,12,13,13},
                 {0, 8,10,10,10,12,12,14,14,14,14},
                 {0, 10,10,12,12,13,13,14,15,16,16},
                 {0,14,14,14,16,16,16,16,16,16,16},
                 {0,10,14,14,14,14,14,14,14,16,16},
                 {0,10,12,12,16,16,16,16,16,16,16},
                 {0,12,12,14,14,15,15,15,17,17,17}
-            } ;	*/
-                {  {0, 5, 5, 7, 7, 10},
-                   {0, 8, 10, 10, 10, 12}
-                };
+            } ;*/
 
+                {  {0, 5, 5, 7, 7, 10},
+                   {0, 8, 10, 10, 10, 12},
+                   {0, 10,10,12,12,13}
+                };
             int K = G.length, S = G[0].length - 1;
             System.out.println("tableau des gain : g(k,s) = gain obtenu en livrant s à k");
             afficher(G);
@@ -63,35 +64,39 @@ public class RepartitionStockEntrepots {
     }
 
     public static int calculerMAGlouton(int[][] G) {
+        // Initialisation : MGlouton = 0, maximum = 0, gain = 0, j = 0
+        // Invariant : I(MGlouton, maximum, gain, j) --> I(MGlouton + maximum,
+        //                                                  max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain),
+        //                                                  , i)
+        // Condition d'arrêt : S = 0
         int n = G.length; // nombre entrepot
-        int S = G[0].length; // stock max d'un entrepot
+        int S = G[0].length - 1; // stock max d'un entrepot (puisque le premier élément de l'entrepôt est égale à 0 parce que quand il n'y pas de stock il n'y aucun gain)
+
         int MGlouton = 0;
-        int[] Sauvegarde = new int[n];
+        int[] Sauvegarde = new int[n]; // dans chaque entrepot la quantité de stock qu'il contient
 
-        int maximum = G[0][1];
-        int j = 0;
-        /*for(int i = 1; i<n; i++){
-            if(G[i][1] > maximum){
-                maximum = G[i][1];
-                j = i;
-            }
-        }
-        Sauvegarde[j] += 1;
-        MGlouton += maximum;*/
+        int gain;
+        int maximum = 0;
+        int j;
 
-        int e = 1;
+        // cas si on a que un seul entrepôt
+        if(n == 1) return G[0][S];
+
+        // cas général
         while(S != 0) {
-            Arrays.sort(Sauvegarde);
-            if(Sauvegarde[0] == Sauvegarde[n-1]) e++;
-            for(int i = 1; i < n; i++) {
-                if(Sauvegarde[i] >= S) return MGlouton;
-                if (G[i][Sauvegarde[i]] >= G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]]) {
-                    maximum = G[i][1];
+            gain = G[0][Sauvegarde[0]+1] - G[0][Sauvegarde[0]];
+            j = 0;
+
+            for(int i = 1; i < n; i++){
+                maximum = max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain);
+
+                if(maximum == G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]]){
+                    gain = G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]];
                     j = i;
                 }
 
             }
-            //if(maximum == 0) Sauvegarde[j] += 1;
+
             Sauvegarde[j] += 1;
             MGlouton += maximum;
             S--;

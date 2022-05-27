@@ -28,8 +28,6 @@ class CheminDeSommeMaximum {
         // System.out.printf("\nNiveau du nombre à l'indice %d : %d\n", 5, ncd(5, T.length));
         int Mglouton = calculerMGlouton(T);
         System.out.println("\nM_glouton : " + Mglouton);
-
-
     }*/
 
     /**
