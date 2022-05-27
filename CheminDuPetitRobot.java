@@ -56,7 +56,7 @@ public class CheminDuPetitRobot {
 		// Initialisation : Mglouton = 0, l = 0, c = 0
 		// Base : l = 0 et c = 0, MGlouton = min(ne(l,c,L,C), n(l,c,L,C), e(l,c,L,C))
 		// Invariant : 0 < l < L ou 0 < c < C MGlouton += min(n(l-1, c, L, C), e(l, c-1, L, C), ne(l-1, c-1, L, C))
-		// Condition d'arrêt : l >= L-1 ou c >= C-1
+		// Condition d'arrêt : l >= L-1 et c >= C-1
 		int l = 0, c = 0, MGlouton;
 
 		// base
