@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Programme quickSort fourni par Monsieur Natowicz en cours, mais légèrement modifié par nos soins
+ * Programme quickSort fourni par Monsieur Natowicz en cours, mais légèrement adapté et modifié par nos soins
  */
 public class QuickSortDisplay {
     public void quickSortDisplay(Triplet[] T){ int n = T.length;

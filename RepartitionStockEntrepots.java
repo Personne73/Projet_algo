@@ -14,7 +14,11 @@ public class RepartitionStockEntrepots {
                 {0,10,14,14,14,14,14,14,14,16,16},
                 {0,10,12,12,16,16,16,16,16,16,16},
                 {0,12,12,14,14,15,15,15,17,17,17}
-            } ;		
+            } ;	*/
+                {  {0, 5, 5, 7, 7, 10},
+                   {0, 8, 10, 10, 10, 12}
+                };
+
             int K = G.length, S = G[0].length - 1;
             System.out.println("tableau des gain : g(k,s) = gain obtenu en livrant s à k");
             afficher(G);
@@ -104,3 +108,4 @@ public class RepartitionStockEntrepots {
 			System.out.println(Arrays.toString(T[i]));
 	}
 }
+

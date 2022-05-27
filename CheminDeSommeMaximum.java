@@ -164,7 +164,7 @@ class CheminDeSommeMaximum {
     }
 
     /**
-     * Fonction qui calcul la valeur d'un chemin glouton
+     * Fonction qui calcule la valeur d'un chemin glouton
      * @param T tableau correspondant à l'arbre
      * @return la valeur d'un chemin glouton
      */
