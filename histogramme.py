@@ -58,7 +58,7 @@ def histogramme(filename):
 
 
 def main():
-    filename = "Sac_de_valeur_maximum_glouton_par_ratio"
+    filename = "Repartition_stock_entrepots"
     histogramme(filename)
     print("l'histogramme est dans le fichier " + filename + ".PNG")
 

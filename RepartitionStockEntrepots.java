@@ -38,7 +38,7 @@ public class RepartitionStockEntrepots {
     /* Exercice 3 : répartition optimale d'un stock S sur n entrepôts/*
 	m(k,s) : gain d'une répartition optimale d'un stock s sur le sous-ensemble
 	des k premiers entrepôts. */
-	static int[][][] calculerMA(int[][] G) { // G[0:n][0:S+1] de terme général
+	public int[][][] calculerMA(int[][] G) { // G[0:n][0:S+1] de terme général
         // G[i][s] = gain d'une livraison d'un stock s à l'entrepôt i.
         // Calcule : M[0:n+1][0:S+1] de tg M[k][s] = m(k,s) et A = arg M.
         // Retourne : int[][][] MA = {M,A}.
@@ -63,11 +63,10 @@ public class RepartitionStockEntrepots {
         return new int[][][]{M, A};
     }
 
-    public static int calculerMAGlouton(int[][] G) {
+    public int calculerMAGlouton(int[][] G) {
         // Initialisation : MGlouton = 0, maximum = 0, gain = 0, j = 0
-        // Invariant : I(MGlouton, maximum, gain, j) --> I(MGlouton + maximum,
-        //                                                  max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain),
-        //                                                  , i)
+        // Invariant : I(MGlouton, maximum, j) --> I(MGlouton + maximum,
+        //                                                  max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain), i)
         // Condition d'arrêt : S = 0
         int n = G.length; // nombre entrepot
         int S = G[0].length - 1; // stock max d'un entrepot (puisque le premier élément de l'entrepôt est égale à 0 parce que quand il n'y pas de stock il n'y aucun gain)
@@ -105,7 +104,41 @@ public class RepartitionStockEntrepots {
         return MGlouton;
     }
 
-    static void aro(int[][] M, int[][] A, int[][] G){ /* affichage d'une répartition
+    public float[] calculerD() {
+        int Smax = 1000; // le stock maximum
+        int Nmax = 1000; // nombre maximum d'entrepôts
+        int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
+        int Gmax = 100;
+
+        float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
+        Random random = new Random(); // générateur de nombres aléatoires
+
+        for (int r = 0; r < Nruns; r++) {
+            int S = 1 + random.nextInt(Smax + 2); // choix du stock aléatoire des entrepôts
+            int n = 1 + random.nextInt(Nmax + 2); // choix du nombre d'entrepôts
+
+            int[][] G = new int[n][S];
+            for(int i = 0; i < n; i++){
+                G[i][0] = 0;
+            }
+            for (int i = 0; i < n; i++) {
+                for (int s = 1; s < S; s++){
+                    G[i][s] = 1 + random.nextInt(Gmax + 2);
+                }
+            }
+
+            int[][][] MA = calculerMA(G); // calcul de la valeur optimales du gain
+            int[][] M = MA[0];
+            float v_etoile = M[n][S-1]; // la valeur gloutonne du meilleur gain
+
+            float g = calculerMAGlouton(G); // la valeur maximum du chemin glouton
+            D[r] = (v_etoile - g) / (1 + v_etoile); // la distance relative entre la valeur de la répartition optimale du stock et la valeur de la répartition de la stratégie gloutonne
+        }
+
+        return D;
+    }
+
+    public void aro(int[][] M, int[][] A, int[][] G){ /* affichage d'une répartition
 	optimale du stock S sur les n entrepôts. G
 	G : tableau des gains (g(i,s) = gain d'une livraison d'un stock s à l'entrepôt i)
 	G est à n lignes et S+1 colonnes où n est le nombre d'entrepôts et S le stock total.
@@ -118,7 +151,7 @@ public class RepartitionStockEntrepots {
             // sous-ensemble des n premiers entrepôts. Autrement dit : afficher une
             // répartition optimale du stock S sur tous les entrepôts (sans contrainte.)
         }
-    static void aro(int[][] M, int[][] A, int[][] G, int k, int s){ /* affichage d'une
+    public void aro(int[][] M, int[][] A, int[][] G, int k, int s){ /* affichage d'une
 		répartition optimale du stock s sur le sous-ensemble des k premiers entrepôts.
 		Notation : ro(k,s) = répartition optimale du stock s sur le sous-ensemble [0:k] */
             // base = condition d'arrêt
