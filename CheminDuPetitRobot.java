@@ -47,7 +47,7 @@ public class CheminDuPetitRobot {
 	}
 
 	/**
-	 * Fonction qui calculer le coût minimum glouton d'un chemin de (0,0) à (l,c)
+	 * Fonction qui permet de calculer le coût minimum glouton d'un chemin de (0,0) à (l,c)
 	 * @param L le nombre de ligne de la grille
 	 * @param C le nombre de colonne de la grille
 	 * @return le coût minimum glouton d'un chemin de (0,0) à (l,c)

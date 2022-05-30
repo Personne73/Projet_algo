@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class RepartitionStockEntrepots {
 
-    public static void main(String[] Argv){
+    /*public static void main(String[] Argv){
         System.out.println("Exercice 3 : répartition optimale d'un stock");
         int[][] G = new int[][] // g(k,s) = gain obtenu d'une livraison 
         // d'une quantité de stock s à l'entrepôt k
@@ -14,7 +14,7 @@ public class RepartitionStockEntrepots {
                 {0,10,14,14,14,14,14,14,14,16,16},
                 {0,10,12,12,16,16,16,16,16,16,16},
                 {0,12,12,14,14,15,15,15,17,17,17}
-            } ;*/
+            } ;
 
                 {  {0, 5, 5, 7, 7, 10},
                    {0, 8, 10, 10, 10, 12},
@@ -33,7 +33,7 @@ public class RepartitionStockEntrepots {
             System.out.println("gain max glouton : " + g);
             // aro(M,A,G,K,S);
             System.out.println();
-    }
+    }/*
 
     /* Exercice 3 : répartition optimale d'un stock S sur n entrepôts/*
 	m(k,s) : gain d'une répartition optimale d'un stock s sur le sous-ensemble

@@ -26,10 +26,11 @@ public class SacDeValeurMaximum {
 		//System.out.println();
         int v = calculerMGloutonValeur(V, T, C);
         System.out.println("Valeur glouton max = " + v);
-        float ratio = calculerMGloutonRatio(V, T, C);
+        int ratio = calculerMGloutonRatio(V, T, C);
         System.out.println("Ratio glouton max = " + ratio);
     }*/
-    public int[][] calculerM(int[] V, int[] T, int C){
+
+    public static int[][] calculerM(int[] V, int[] T, int C){
         int n = V.length;
         // Retourne M[0:n+1][0:C+1], de terme général M[k][c] = m(k,c)
         int[][] M = new int[n+1][C+1];
@@ -67,18 +68,7 @@ public class SacDeValeurMaximum {
         return triplet;
     }
 
-    /**
-     * Fonction qui permet de calculer la valeur du sac lorsqu'il la contenance est maximale. On effectue le tri des
-     * valeurs en prenant l'ordre décroissant des valeurs.
-     * @param V Le tableau contenant toutes les valeurs des objets.
-     * @param T Le tableau contenant toutes les tailles des objets.
-     * @param C L'entier qui défini la contenance du sac.
-     * @return val La valeur du sac lorsque sa contenance est maximale.
-     */
     public int calculerMGloutonValeur(int[] V, int[] T, int C){
-        // Initialisation : val = 0, j = 0, c = 0
-        // Invariant : I(val, j, c) --> I(val + TabObjets[j].getValeur(), j+1, c + TabObjets[j].getTaille())
-        // Condition d'arrêt : c > C
         int val = 0;
         int j = 0;
         int c = 0;
@@ -88,7 +78,7 @@ public class SacDeValeurMaximum {
 
         qs.quickSortDisplay(TabObjets);
 
-        while(c <= C){
+        while(c <= C ){
             if(j >= TabObjets.length) return val;
             if(C-c == 0) return val;
             if( TabObjets[j].getTaille() <= C-c){
@@ -100,19 +90,9 @@ public class SacDeValeurMaximum {
         return val;
     }
 
-    /**
-     * Fonction qui permet de trier les valeurs dans l'ordre décroissant en faisant le ratio Valeur/Taille
-     * @param V Le tableau contenant toutes les valeurs des objets.
-     * @param T Le tableau contenant toutes les tailles des objets.
-     * @param C L'entier qui défini la contenance du sac.
-     * @return ratio La valeur maximale du ratio des objets contenus dans le sac.
-     */
     // il faut récuperer les valeurs de V et de T pour en faire un ratio mais il faut garder la taille
-    public float calculerMGloutonRatio(int[] V, int[] T, int C){
-        // Initialisation : ratio = 0, j = 0, c = 0
-        // Invariant : I(val, j, c) --> I(ratio + TabObjets[j].getRatio(), j+1, c + TabObjets[j].getTaille())
-        // Condition d'arrêt : c > C
-        float ratio = 0;
+    public int calculerMGloutonRatio(int[] V, int[] T, int C){
+        int valeur = 0;
         int j = 0;
         int c = 0;
 
@@ -121,27 +101,27 @@ public class SacDeValeurMaximum {
 
         qs.quickSortDisplayRatio(TabObjets);
 
-        while(c <= C){
-            if(j >= TabObjets.length) return ratio;
-            if(C-c == 0) return ratio;
+        while(c <= C ){
+            if(j >= TabObjets.length) return valeur;
+            if(C-c == 0) return valeur;
             if( TabObjets[j].getTaille() <= C-c){
                 c += TabObjets[j].getTaille();
-                ratio += TabObjets[j].getRatio();
+                valeur += TabObjets[j].getValeur();
             }
             j++;
         }
-        return ratio;
+        return valeur;
     }
 
 
-    public void afficher(int[][] M){ int n = M.length; // affichage du tableau M.
+    public static void afficher(int[][] M){ int n = M.length; // affichage du tableau M.
         System.out.println("\t[");
         for (int i = n-1; i>=0; i--) 
             System.out.println("\t\t" + Arrays.toString(M[i]));
         System.out.println("\t]");
     }
 
-    public int max(int x, int y){
+    public static int max(int x, int y){
         if (x >= y) return x; 
         return y; 
     }
@@ -161,17 +141,13 @@ public class SacDeValeurMaximum {
         }
         return Tmax;
     }
-    /**
-     * Fonction qui permet de calculer le tableau de la distance relative entre chaque runs
-     * @return le tableau de la distance relative entre chaque runs
-     */
+
     public float[] calculerDValeur() {
         int Cmax = 1000; // contenance maximum du sac
         int Nmax = 1000; // nombre maximum d'objets à l'interieur du sac
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
         int Tmax = 100;
-
         float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
         Random random = new Random(); // générateur de nombres aléatoires
 
@@ -183,7 +159,7 @@ public class SacDeValeurMaximum {
             int[] T = new int[n];
             for (int i = 0; i < n; i++) {
                 V[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de V entre 0 et Vmax + 1
-                T[i] = random.nextInt(Tmax + 2) + 1;
+                T[i] = random.nextInt(Tmax + 1);
             }
 
             int[][] M = calculerM(V, T, C); // calcul de la valeur des chemins de somme maximum
@@ -195,17 +171,13 @@ public class SacDeValeurMaximum {
 
         return D;
     }
-    /**
-     * Fonction qui permet de calculer le tableau de la distance relative entre chaque runs
-     * @return le tableau de la distance relative entre chaque runs
-     */
+
     public float[] calculerDRatio() {
         int Cmax = 1000; // contenance maximum du sac
         int Nmax = 1000; // nombre maximum d'objets à l'interieur du sac
         int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
         int Vmax = 100; // la plus grande valeur pouvant être présente dans le triangle
         int Tmax = 100;
-
         float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
         Random random = new Random(); // générateur de nombres aléatoires
 
@@ -217,7 +189,7 @@ public class SacDeValeurMaximum {
             int[] T = new int[n];
             for (int i = 0; i < n; i++) {
                 V[i] = random.nextInt(Vmax + 1); // génération des valeurs aléatoires de V entre 0 et Vmax + 1
-                T[i] = random.nextInt(Tmax + 2) + 1;
+                T[i] = random.nextInt(Tmax + 1);
             }
 
             int[][] M = calculerM(V, T, C); // calcul de la valeur des chemins de somme maximum
