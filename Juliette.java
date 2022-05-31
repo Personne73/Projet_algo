@@ -12,7 +12,7 @@ Répartition optimale d'un temps de travail -- rene.natowicz@esiee.fr -- 16/03/2
 */
 public class Juliette {
     public static void main(String[] Args){
-        int n = 10, Hmax = 10; // Juliette peut travailler jusqu'à Hmax heures.
+        int n = 10, Hmax = 1; // Juliette peut travailler jusqu'à Hmax heures.
         int[][] E = estimations(n,Hmax); // notes aléatoires, croissantes selon h.
         System.out.printf("Nombre d'unités : %d \n", n);
         System.out.println("Notes estimées : ");
