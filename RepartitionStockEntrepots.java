@@ -72,7 +72,7 @@ public class RepartitionStockEntrepots {
         int S = G[0].length - 1; // stock max d'un entrepot (puisque le premier élément de l'entrepôt est égale à 0 parce que quand il n'y pas de stock il n'y aucun gain)
 
         int MGlouton = 0;
-        int[] Sauvegarde = new int[n]; // dans chaque entrepot la quantité de stock qu'il contient
+        int[] save = new int[n]; // dans chaque entrepot la quantité de stock qu'il contient
 
         int gain;
         int maximum = 0;
@@ -83,20 +83,20 @@ public class RepartitionStockEntrepots {
 
         // cas général
         while(S != 0) {
-            gain = G[0][Sauvegarde[0]+1] - G[0][Sauvegarde[0]];
+            gain = G[0][save[0]+1] - G[0][save[0]];
             j = 0;
 
             for(int i = 1; i < n; i++){
-                maximum = max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain);
+                maximum = max(G[i][save[i]+1] - G[i][save[i]], gain);
 
-                if(maximum == G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]]){
-                    gain = G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]];
+                if(maximum == G[i][save[i]+1] - G[i][save[i]]){
+                    gain = G[i][save[i]+1] - G[i][save[i]];
                     j = i;
                 }
 
             }
 
-            Sauvegarde[j] += 1;
+            save[j] += 1;
             MGlouton += maximum;
             S--;
         }
