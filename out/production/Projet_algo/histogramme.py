@@ -50,6 +50,8 @@ def histogramme(filename):
         for row in reader:
             dr = row[0]
             DR.append(float(dr))
+
+    #plt.xlim(0, 15)
     plt.ylim(0, 15)  # modification suggérée par le prof
     h = plt.hist(DR, bins=len(DR))
     plt.savefig(filename + ".PNG")
@@ -58,9 +60,13 @@ def histogramme(filename):
 
 
 def main():
-    filename = "Repartition_stock_entrepots"
+    filename = "Sac_de_valeur_maximum_glouton_par_ratio"
     histogramme(filename)
     print("l'histogramme est dans le fichier " + filename + ".PNG")
+
+    filenam = "Sac_de_valeur_maximum_glouton_par_valeur"
+    histogramme(filenam)
+    print("l'histogramme est dans le fichier " + filenam + ".PNG")
 
 
 main()
