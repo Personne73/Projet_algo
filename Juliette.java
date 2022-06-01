@@ -27,8 +27,13 @@ public class Juliette {
             float moyenneMaximum = (float) M[n][H]/n;
             String strDouble = String.format("%.2f", moyenneMaximum);
             System.out.printf("Moyenne maximum : %s/20\n", strDouble);
-            System.out.println("Une répartition optimale :");
+            System.out.println("Une répartition optimale" +
+                    "........... :");
             aro(A,E_H,n,H);
+            ////////////////////////////////////////////////////////////////////////////////
+            int MGlouton = calculerMAGlouton(E_H, H);
+            System.out.printf("Somme maximum des notes gloutonnes : %d\n", MGlouton);
+            System.out.printf("Moyenne maximum gloutonne : %f/20\n", (float)MGlouton/n);
             if (M[n][H] == 20 * n){
                 System.out.println("\n *** inutile de travailler plus... ***");
                 return;
