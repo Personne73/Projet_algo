@@ -125,6 +125,7 @@ public class RepartitionStockEntrepots {
                 for (int s = 1; s < S; s++){
                     G[i][s] = 1 + random.nextInt(Gmax + 2);
                 }
+                Arrays.sort(G[i]);
             }
 
             int[][][] MA = calculerMA(G); // calcul de la valeur optimales du gain

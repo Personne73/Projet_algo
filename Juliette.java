@@ -71,6 +71,43 @@ public class Juliette {
         return new int[][][] {M, A};
     } // complexité Theta(n x H^2).
 
+    public static int calculerMAGlouton(int[][] E, int H) {
+        // Initialisation : MGlouton = 0, maximum = 0, gain = 0, j = 0
+        // Invariant : I(MGlouton, maximum, j) --> I(MGlouton + maximum,
+        //                                                  max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain), i)
+        // Condition d'arrêt : S = 0
+        int n = E.length; // nombre d'unités
+        //int H = E[0].length - 1; // stock max d'un entrepot (puisque le premier élément de l'entrepôt est égale à 0 parce que quand il n'y pas de stock il n'y aucun gain)
+
+        int MGlouton = 0;
+        int[] Sauvegarde = new int[n]; // dans chaque entrepot la quantité de stock qu'il contient
+
+        int gain;
+        int maximum = 0;
+        int j;
+
+        // cas si on a que une seule unité
+        if(n == 1) return E[0][H];
+
+        // cas général
+        while(H != 0) {
+            gain = E[0][Sauvegarde[0]+1];// - E[0][Sauvegarde[0]];
+            j = 0;
+
+            for(int i = 1; i < n; i++){
+                maximum = Math.max(E[i][Sauvegarde[i]+1] /*- E[i][Sauvegarde[i]]*/, gain);
+                if(maximum == E[i][Sauvegarde[i]+1]){ //- E[i][Sauvegarde[i]]){
+                    gain = E[i][Sauvegarde[i]+1]; //- E[i][Sauvegarde[i]];
+                    j = i;
+                }
+            }
+            Sauvegarde[j] += 1;
+            MGlouton += maximum;
+            H--;
+        }
+        return MGlouton;
+    }
+
     static void aro(int[][] A, int[][] E, int k, int h){
         // affiche ro(k,h) : répartition optimale de h heures sur les k premières unités.
         if (k == 0) return; // sans rien faire, ro(0,h) a été affichée.
@@ -136,6 +173,8 @@ public class Juliette {
         if (x<=y) return x;
         return y;
     }
+
+
 }
 /* Compilation et exemple d'exécution du programme :
 % javac Juliette.java
