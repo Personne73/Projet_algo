@@ -23,7 +23,7 @@ public class Main {
 
 
         // Sac de valeur maximum
-        /*System.out.println("\n\nEvaluation statistique pour le sac de valeur maximum : ");
+        System.out.println("\n\nEvaluation statistique pour le sac de valeur maximum : ");
         System.out.println("Stratégie gloutonne par valeur décroissante");
         SacDeValeurMaximum sac = new SacDeValeurMaximum();
         float[] Dsac = sac.calculerDValeur();
@@ -33,15 +33,15 @@ public class Main {
         System.out.println("\nStratégie gloutonne par ratios décroissant : ");
         float[] Dratio = sac.calculerDRatio();
         csv.fichierCsv("Sac_de_valeur_maximum_glouton_par_ratio.csv", Dratio);
-        eval.es(Dratio);*/
+        eval.es(Dratio);
 
 
         // Répartition de stock d'entrepôt
-        System.out.println("\n\nEvaluation statistique pour le sac de valeurs maximum : ");
+        /*System.out.println("\n\nEvaluation statistique pour le sac de valeurs maximum : ");
         RepartitionStockEntrepots repartition = new RepartitionStockEntrepots();
         float[] Drepartition = repartition.calculerD();
         csv.fichierCsv("Repartition_stock_entrepots.csv", Drepartition);
-        eval.es(Drepartition);
+        eval.es(Drepartition);*/
 
 
         // Répartition optimale d'un temps de travail sur un ensemble d'unités
