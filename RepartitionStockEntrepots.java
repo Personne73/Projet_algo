@@ -7,7 +7,7 @@ public class RepartitionStockEntrepots {
         System.out.println("Exercice 3 : répartition optimale d'un stock");
         int[][] G = new int[][] // g(k,s) = gain obtenu d'une livraison 
         // d'une quantité de stock s à l'entrepôt k
-           /* {	{0, 5, 5, 7, 7,10,10,12,12,13,13},
+            {	{0, 5, 5, 7, 7,10,10,12,12,13,13},
                 {0, 8,10,10,10,12,12,14,14,14,14},
                 {0, 10,10,12,12,13,13,14,15,16,16},
                 {0,14,14,14,16,16,16,16,16,16,16},
@@ -33,7 +33,7 @@ public class RepartitionStockEntrepots {
             System.out.println("gain max glouton : " + g);
             // aro(M,A,G,K,S);
             System.out.println();
-    }/*
+    }*/
 
     /* Exercice 3 : répartition optimale d'un stock S sur n entrepôts/*
 	m(k,s) : gain d'une répartition optimale d'un stock s sur le sous-ensemble
@@ -114,8 +114,8 @@ public class RepartitionStockEntrepots {
         Random random = new Random(); // générateur de nombres aléatoires
 
         for (int r = 0; r < Nruns; r++) {
-            int S = 1 + random.nextInt(Smax + 2); // choix du stock aléatoire des entrepôts
-            int n = 1 + random.nextInt(Nmax + 2); // choix du nombre d'entrepôts
+            int S = 1 + random.nextInt(Smax + 1); // choix du stock aléatoire des entrepôts
+            int n = 1 + random.nextInt(Nmax + 1); // choix du nombre d'entrepôts
 
             int[][] G = new int[n][S];
             for(int i = 0; i < n; i++){
@@ -123,7 +123,7 @@ public class RepartitionStockEntrepots {
             }
             for (int i = 0; i < n; i++) {
                 for (int s = 1; s < S; s++){
-                    G[i][s] = 1 + random.nextInt(Gmax + 2);
+                    G[i][s] = 1 + random.nextInt(Gmax + 1);
                 }
                 Arrays.sort(G[i]);
             }

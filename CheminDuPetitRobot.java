@@ -103,8 +103,8 @@ public class CheminDuPetitRobot {
 
         for(int r = 0; r < Nruns; r++){
 			// nombre de lignes et de colonnes de la grille
-            int L = random.nextInt(Lmax + 2) + 1; 
-            int C = random.nextInt(Cmax + 2) + 1;
+            int L = random.nextInt(Lmax + 1) + 1;
+            int C = random.nextInt(Cmax + 1) + 1;
 
 			// choix du coût des directions
 			N = random.nextInt(Nmax + 1);

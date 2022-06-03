@@ -139,7 +139,7 @@ class CheminDeSommeMaximum {
      */
     public void acsm(int[] M, int[] T, int i, int n){
         // cas de base : i > n, i n'est pas un indice des tableaux T et M (condition d'arrêt)
-        if(i > n) return;
+        if(i >= n) return;
         else {
             // cas général : on fait un appel récursif
             System.out.printf("%d", T[i]);
@@ -200,7 +200,7 @@ class CheminDeSommeMaximum {
         Random random = new Random(); // générateur de nombres aléatoires
 
         for (int r = 0; r < Nruns; r++) {
-            int m = random.nextInt(Lmax + 2) + 1; // choix du nombre de niveaux m de l'arbre au hasard
+            int m = random.nextInt(Lmax + 1) + 1; // choix du nombre de niveaux m de l'arbre au hasard
             int n = m * (m + 1) / 2; // nombre de valeurs dans le triangle
 
             int[] T = new int[n]; // un tableau d'entiers
