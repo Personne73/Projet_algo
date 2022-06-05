@@ -51,7 +51,7 @@ def histogramme(filename):
             dr = row[0]
             DR.append(float(dr))
     plt.ylim(0, 15)  # modification suggérée par le prof
-    plt.xlim(-0.01, 0.25)
+    #plt.xlim(-0.01, 0.25)
     plt.title("Histogramme des distances relatives des\nsolutions optimale et gloutonne par densit� de valeur du sac")
     h = plt.hist(DR, bins=len(DR))
     plt.savefig(filename + ".PNG")

@@ -37,7 +37,7 @@ public class Main {
 
 
         // Répartition de stock d'entrepôt
-        /*System.out.println("\n\nEvaluation statistique pour le sac de valeurs maximum : ");
+        /*System.out.println("\n\nEvaluation statistique pour la répartition optimale sur un ensemble d'entrepot : ");
         RepartitionStockEntrepots repartition = new RepartitionStockEntrepots();
         float[] Drepartition = repartition.calculerD();
         csv.fichierCsv("Repartition_stock_entrepots.csv", Drepartition);
