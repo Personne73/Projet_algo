@@ -143,7 +143,7 @@ public class CheminDuPetitRobot {
 	
 	public int ne(int l, int c, int L, int C, int[][] matrix){
 		if (l == L-1 || c == C-1) return plusInfini;
-		return NE;
+		return matrix[l+1][c+1];
 	}
 
 	public int e(int l, int c, int L, int C, int[][] matrix) {

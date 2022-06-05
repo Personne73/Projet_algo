@@ -15,11 +15,11 @@ public class Main {
 
 
         // Chemin du petit robot
-        /*System.out.println("\n\nEvaluation statistique pour le chemin du petit robot : ");
+        System.out.println("\n\nEvaluation statistique pour le chemin du petit robot : ");
         CheminDuPetitRobot robot = new CheminDuPetitRobot();
         float[] Drobot = robot.calculerD();
         csv.fichierCsv("Chemin_du_petit_robot.csv", Drobot);
-        eval.es(Drobot);*/
+        eval.es(Drobot);
 
 
         // Sac de valeur maximum
@@ -45,14 +45,19 @@ public class Main {
 
 
         // Répartition optimale d'un temps de travail sur un ensemble d'unités
+        /*System.out.println("\n\nEvaluation statistique pour la répartition optimale sur un ensemble d'unités");
+        Juliette unite = new Juliette();
+        float[] Dunite = unite.calculerD();
+        csv.fichierCsv("Repartition_unites_heures.csv", Dunite);
+        eval.es(Dunite);*/
 
     }
 }
 
-// TODO : Juliette, petit robot
+// TODO : petit robot
 
 // SACVALMAX = OK
 // Petit Robot = modifier evaluation statistique
 // Somme Maximum = OK
 // Entrepot = OK
-// Juliette = a faire
+// Juliette = OK
