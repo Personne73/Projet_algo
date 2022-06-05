@@ -54,10 +54,4 @@ public class Main {
     }
 }
 
-// TODO : petit robot
-
-// SACVALMAX = OK
-// Petit Robot = modifier evaluation statistique
-// Somme Maximum = OK
-// Entrepot = OK
-// Juliette = OK
+// TODO : commentaires codes + rapport
