@@ -43,7 +43,7 @@ import csv
 import matplotlib.pyplot as plt
 
 
-def histogramme(filename):
+def histogramme(filename, title):
     DR = []  # distances relatives
     with open(filename + ".CSV") as csvfile:
         reader = csv.reader(csvfile)
@@ -52,7 +52,7 @@ def histogramme(filename):
             DR.append(float(dr))
     plt.ylim(0, 15)  # modification suggÃ©rÃ©e par le prof
     #plt.xlim(-0.01, 0.25)
-    plt.title("Histogramme des distances relatives des\nsolutions optimale et gloutonne par densité de valeur du sac")
+    plt.title("Histogramme des distances relatives des solutions\noptimale et gloutonne " + title)
     h = plt.hist(DR, bins=len(DR))
     plt.savefig(filename + ".PNG")
     plt.close()
@@ -60,13 +60,29 @@ def histogramme(filename):
 
 
 def main():
-    #filename = "Sac_de_valeur_maximum_glouton_par_valeur"
-    #histogramme(filename)
+    #filename = "Chemin_de_somme_maximum"
+    #histogramme(filename, "du chemin de somme maximum")
     #print("l'histogramme est dans le fichier " + filename + ".PNG")
 
-    filename = "Sac_de_valeur_maximum_glouton_par_ratio"
-    histogramme(filename)
+    filename = "Chemin_du_petit_robot"
+    histogramme(filename, "du chemin du petit robot")
     print("l'histogramme est dans le fichier " + filename + ".PNG")
+
+    #filename = "Sac_valeur_maximum_glouton_valeur"
+    #histogramme(filename, "du sac (glouton par valeur)")
+    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+
+    #filename = "Sac_valeur_maximum_glouton_densite_valeur"
+    #histogramme(filename, "du sac (glouton par densité valeur)")
+    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+
+    #filename = "Repartition_stock_entrepots"
+    #histogramme(filename, "de la répartition d'un stock")
+    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+
+    #filename = "Repartition_unites_heures"
+    #histogramme(filename, "de la répartition d'un temps de travail")
+    #print("l'histogramme est dans le fichier " + filename + ".PNG")
 
 
 main()

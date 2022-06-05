@@ -11,8 +11,8 @@ je vous encourage à vous auto-former.
 Répartition optimale d'un temps de travail -- rene.natowicz@esiee.fr -- 16/03/2022
 */
 public class Juliette {
-    public static void main(String[] Args){
-        int n = 10, Hmax = 10; // Juliette peut travailler jusqu'à Hmax heures.
+    /*public static void main(String[] Args){
+        int n = 1, Hmax = 10; // Juliette peut travailler jusqu'à Hmax heures.
         int[][] E = estimations(n,Hmax); // notes aléatoires, croissantes selon h.
         System.out.printf("Nombre d'unités : %d \n", n);
         System.out.println("Notes estimées : ");
@@ -33,15 +33,15 @@ public class Juliette {
             ////////////////////////////////////////////////////////////////////////////////
             int MGlouton = calculerMAGlouton(E_H, H);
             System.out.printf("Somme maximum des notes gloutonnes : %d\n", MGlouton);
-            System.out.printf("Moyenne maximum gloutonne : %f/20\n", (float)MGlouton/n);
+            System.out.printf("Moyenne maximum gloutonne : %.2f/20\n", (float)MGlouton/n);
             if (M[n][H] == 20 * n){
                 System.out.println("\n *** inutile de travailler plus... ***");
                 return;
             }
         }
-    }
+    }*/
 
-    static int[][][] calculerMA(int[][] E){	// E : tableau des notes estimées.
+    public int[][][] calculerMA(int[][] E){	// E : tableau des notes estimées.
         // E[0:n][0:H+1] est de terme général E[i][h] = e(i,h).
         // Retourne M et A : M[0:n+1][0:H+1] de terme général M[k][h] = m(k,h), somme maximum
         // des notes d'une répartition de h heures sur le sous-ensemble des k premières unités.
@@ -76,7 +76,7 @@ public class Juliette {
         return new int[][][] {M, A};
     } // complexité Theta(n x H^2).
 
-    public static int calculerMAGlouton(int[][] E, int H) {
+    public int calculerMAGlouton(int[][] E, int H) {
         // Initialisation : MGlouton = 0, maximum = 0, gain = 0, j = 0
         // Invariant : I(MGlouton, maximum, j) --> I(MGlouton + maximum,
         //                                                  max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain), i)
@@ -94,15 +94,19 @@ public class Juliette {
         // cas si on a que une seule unité
         if(n == 1) return E[0][H];
 
+        for (int[] ints : E) {
+            MGlouton += ints[0];
+        }
+
         // cas général
         while(H != 0) {
-            gain = E[0][Sauvegarde[0]+1];// - E[0][Sauvegarde[0]];
+            gain = E[0][Sauvegarde[0]+1] - E[0][Sauvegarde[0]];
             j = 0;
 
             for(int i = 1; i < n; i++){
-                maximum = Math.max(E[i][Sauvegarde[i]+1] /*- E[i][Sauvegarde[i]]*/, gain);
-                if(maximum == E[i][Sauvegarde[i]+1]){ //- E[i][Sauvegarde[i]]){
-                    gain = E[i][Sauvegarde[i]+1]; //- E[i][Sauvegarde[i]];
+                maximum = Math.max(E[i][Sauvegarde[i]+1] - E[i][Sauvegarde[i]], gain);
+                if(maximum == E[i][Sauvegarde[i]+1] - E[i][Sauvegarde[i]]){
+                    gain = E[i][Sauvegarde[i]+1] - E[i][Sauvegarde[i]];
                     j = i;
                 }
             }
@@ -111,6 +115,31 @@ public class Juliette {
             H--;
         }
         return MGlouton;
+    }
+
+    public float[] calculerD() {
+        int Hmax = 1000; // le nombre d'heure max maximum
+        int Nmax = 1000; // nombre maximum d'unité
+        int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
+
+        float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
+        Random random = new Random(); // générateur de nombres aléatoires
+
+        for (int r = 0; r < Nruns; r++) {
+            int H = random.nextInt(Hmax + 1);
+            int n = 1 + random.nextInt(Nmax + 1);
+
+            int[][] E = estimations(n, H);
+            int[][] E_H = estimationsRestreintes(E,H);
+            int[][][] MA = calculerMA(E_H);
+            int[][] M = MA[0];
+
+            float v_etoile = M[n][H];
+            float g = calculerMAGlouton(E_H, H);
+            D[r] = (v_etoile - g) / (1 + v_etoile);
+        }
+
+        return D;
     }
 
     static void aro(int[][] A, int[][] E, int k, int h){
@@ -130,7 +159,7 @@ public class Juliette {
         // a été affichée.
     } // Complexité Theta(n).
 
-    static int[][] estimations(int n, int H){ // retourne E[0:n][0:H+1] de terme général
+    public int[][] estimations(int n, int H){ // retourne E[0:n][0:H+1] de terme général
         // E[i][h] = e(i,h). Les estimations sont aléatoires, croissantes selon h.
         int[][] E = new int[n][H+1];
         Random rand = new Random(); // pour génération aléatoire des notes estimées.
@@ -141,7 +170,7 @@ public class Juliette {
         return E;
     }
 
-    static int[][] estimationsRestreintes(int[][] E, int H){ int n = E.length;
+    public int[][] estimationsRestreintes(int[][] E, int H){ int n = E.length;
         // E[0:n][0:Hmax+1]. Cette fonction retourne E[0:n][0:H+1]
         int[][] E_H = new int[n][H+1];
         for (int i = 0; i < n; i++)
