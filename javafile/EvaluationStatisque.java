@@ -1,3 +1,5 @@
+package javafile;
+
 import java.util.Arrays;
 
 public class EvaluationStatisque {

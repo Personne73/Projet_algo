@@ -1,3 +1,5 @@
+package javafile;
+
 import java.io.FileWriter;
 import java.io.IOException;
 

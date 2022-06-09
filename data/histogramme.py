@@ -52,7 +52,7 @@ def histogramme(filename, title):
             DR.append(float(dr))
     plt.ylim(0, 15)  # modification suggÃ©rÃ©e par le prof
     #plt.xlim(-0.01, 0.25)
-    plt.title("Histogramme des distances relatives des solutions\noptimale et gloutonne " + title)
+    plt.title("Histogramme des distances relatives des solutions\noptimales et gloutonnes " + title)
     h = plt.hist(DR, bins=len(DR))
     plt.savefig(filename + ".PNG")
     plt.close()
@@ -69,11 +69,11 @@ def main():
     print("l'histogramme est dans le fichier " + filename + ".PNG")
 
     filename = "Sac_valeur_maximum_glouton_valeur"
-    histogramme(filename, "du sac (glouton par valeur)")
+    histogramme(filename, "du sac (glouton par valeurs)")
     print("l'histogramme est dans le fichier " + filename + ".PNG")
 
     filename = "Sac_valeur_maximum_glouton_densite_valeur"
-    histogramme(filename, "du sac (glouton par densité valeur)")
+    histogramme(filename, "du sac (glouton par densité de valeurs)")
     print("l'histogramme est dans le fichier " + filename + ".PNG")
 
     filename = "Repartition_stock_entrepots"
