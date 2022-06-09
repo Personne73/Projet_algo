@@ -4,6 +4,11 @@ package javafile;
  * Classe javafile.Main où on exécute tout le programme pour éviter toute duplication de code
  */
 public class Main {
+
+    /**
+     * Méthode principale qui permet de lancer le programme
+     * @param Args les arguments passés en ligne de commande
+     */
     public static void main(String[] Args){
         Csv csv = new Csv();
         EvaluationStatisque eval = new EvaluationStatisque();
@@ -14,7 +19,6 @@ public class Main {
         float[] Dchemin = chemin.calculerD();
         csv.fichierCsv("data/Chemin_de_somme_maximum.csv", Dchemin);
         eval.es(Dchemin);*/
-
 
         // Chemin du petit robot
         /*System.out.println("\n\nEvaluation statistique pour le chemin du petit robot : ");
@@ -36,14 +40,12 @@ public class Main {
         csv.fichierCsv("data/Sac_valeur_maximum_glouton_densite_valeur_1000000.csv", Dratio);
         eval.es(Dratio);
 
-
         // Répartition de stock d'entrepôt
         /*System.out.println("\n\nEvaluation statistique pour la répartition optimale sur un ensemble d'entrepot : ");
         RepartitionStockEntrepots repartition = new RepartitionStockEntrepots();
         float[] Drepartition = repartition.calculerD();
         csv.fichierCsv("data/Repartition_stock_entrepots.csv", Drepartition);
         eval.es(Drepartition);
-
 
         // Répartition optimale d'un temps de travail sur un ensemble d'unités
         System.out.println("\n\nEvaluation statistique pour la répartition optimale sur un ensemble d'unités");
@@ -52,6 +54,7 @@ public class Main {
         csv.fichierCsv("data/Repartition_unites_heures.csv", Dunite);
         eval.es(Dunite);*/
     }
-}
+
+} // fin de classe
 
 // TODO : commentaires codes + rapport

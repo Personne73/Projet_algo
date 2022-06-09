@@ -2,49 +2,22 @@ package javafile;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Classe qui permet la résolution de l'exemple 3 du projet sur la répartition d'un stock sur un ensemble d'entrepôts
+ * Certains morceaux de code ont été pris du professeur M. René Natowicz
+ * (le code optimal et les fonctions nécessaires au fonctionnement de l'exercice)
+ */
 public class RepartitionStockEntrepots {
 
-    /*public static void main(String[] Argv){
-        System.out.println("Exercice 3 : répartition optimale d'un stock");
-        int[][] G = new int[][] // g(k,s) = gain obtenu d'une livraison 
-        // d'une quantité de stock s à l'entrepôt k
-            {	{0, 5, 5, 7, 7,10,10,12,12,13,13},
-                {0, 8,10,10,10,12,12,14,14,14,14},
-                {0, 10,10,12,12,13,13,14,15,16,16},
-                {0,14,14,14,16,16,16,16,16,16,16},
-                {0,10,14,14,14,14,14,14,14,16,16},
-                {0,10,12,12,16,16,16,16,16,16,16},
-                {0,12,12,14,14,15,15,15,17,17,17}
-            } ;
-
-                {  {0, 5, 5, 7, 7, 10},
-                   {0, 8, 10, 10, 10, 12},
-                   {0, 10,10,12,12,13}
-                };
-                {
-                        {0, 5, 5, 7, 7},
-                        {0, 8, 10, 25, 32},
-                        {0, 10 ,11 ,12, 30},
-                };
-            int K = G.length, S = G[0].length - 1;
-            System.out.println("tableau des gain : g(k,s) = gain obtenu en livrant s à k");
-            afficher(G);
-            int[][][] MA = calculerMA(G);
-            int[][] M = MA[0], A = MA[1];
-            System.out.printf("gain total maximum : %d\n", M[K][S]);
-            System.out.println("tableau M des gains maximum :");
-            afficher(M); 
-            //System.out.println("une affectation optimale :");
-            int g = calculerMAGlouton(G);
-            System.out.println("gain max glouton : " + g);
-            //aro(M,A,G,K,S);
-            System.out.println();
-    }*/
-
-    /* Exercice 3 : répartition optimale d'un stock S sur n entrepôts/*
-	m(k,s) : gain d'une répartition optimale d'un stock s sur le sous-ensemble
-	des k premiers entrepôts. */
-	public int[][][] calculerMA(int[][] G) { // G[0:n][0:S+1] de terme général
+    /**
+     * Répartition optimale d'un stock S sur n entrepôts
+     * @author René Natowicz
+     * @param G tableau des gains de chaque entrepôt en fonction du stock
+     * @return un tableau 3D : un 2D de la solution optimal et son tableau d'argument de la solution optimal
+     */
+	public int[][][] calculerMA(int[][] G) {
+        // m(k,s) : gain d'une répartition optimale d'un stock s sur le sous-ensemble des k premiers entrepôts
+        // G[0:n][0:S+1] de terme général
         // G[i][s] = gain d'une livraison d'un stock s à l'entrepôt i.
         // Calcule : M[0:n+1][0:S+1] de tg M[k][s] = m(k,s) et A = arg M.
         // Retourne : int[][][] MA = {M,A}.
@@ -69,13 +42,17 @@ public class RepartitionStockEntrepots {
         return new int[][][]{M, A};
     }
 
+    /**
+     * Fonction qui calcul le gain maximum selon la répartition gloutonne
+     * @param G tableau des gains de chaque entrepôt en fonction du stock
+     * @return le gain glouton
+     */
     public int calculerMAGlouton(int[][] G) {
         // Initialisation : MGlouton = 0, maximum = 0, gain = 0, j = 0
-        // Invariant : I(MGlouton, maximum, j) --> I(MGlouton + maximum,
-        //                                                  max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain), i)
+        // Invariant : I(maximum, MGlouton, j) --> I(max(G[i][Save[i]+1] - G[i][Save[i]]), MGlouton + maximum, gain), i)
         // Condition d'arrêt : S = 0
         int n = G.length; // nombre entrepot
-        int S = G[0].length - 1; // stock max d'un entrepot (puisque le premier élément de l'entrepôt est égale à 0 parce que quand il n'y pas de stock il n'y aucun gain)
+        int S = G[0].length - 1; // stock max d'un entrepot
 
         int MGlouton = 0;
         int[] save = new int[n]; // dans chaque entrepot la quantité de stock qu'il contient
@@ -84,7 +61,7 @@ public class RepartitionStockEntrepots {
         int maximum = 0;
         int j;
 
-        // cas si on a que un seul entrepôt
+        //si on a un seul entrepôt
         if(n == 1) return G[0][S];
 
         // cas général
@@ -108,16 +85,21 @@ public class RepartitionStockEntrepots {
         }
 
         return MGlouton;
-    }
+    } // fonction de complexité Θ(n²)
 
+    /**
+     * Fonction qui permet de calculer le tableau de la distance relative entre
+     * la solution optimal et la solution gloutonne lors de chaque runs
+     * @return le tableau de la distance relative entre chaque runs
+     */
     public float[] calculerD() {
         int Smax = 1000; // le stock maximum
         int Nmax = 1000; // nombre maximum d'entrepôts
-        int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
-        int Gmax = 100;
+        int Gmax = 100; // le gain maximum
+        int Nruns = 5000;
 
-        float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
-        Random random = new Random(); // générateur de nombres aléatoires
+        float[] D = new float[Nruns];
+        Random random = new Random();
 
         for (int r = 0; r < Nruns; r++) {
             int S = 1 + random.nextInt(Smax + 1); // choix du stock aléatoire des entrepôts
@@ -131,63 +113,32 @@ public class RepartitionStockEntrepots {
                 for (int s = 1; s < S; s++){
                     G[i][s] = 1 + random.nextInt(Gmax + 1);
                 }
-                Arrays.sort(G[i]);
+                Arrays.sort(G[i]); // trie des valeurs de chaque ligne dans l'ordre croissant
             }
 
-            int[][][] MA = calculerMA(G); // calcul de la valeur optimales du gain
+            // calcul de la valeur optimal du gain
+            int[][][] MA = calculerMA(G);
             int[][] M = MA[0];
-            float v_etoile = M[n][S-1]; // la valeur gloutonne du meilleur gain
+            float v_etoile = M[n][S-1];
 
-            float g = calculerMAGlouton(G); // la valeur maximum du chemin glouton
-            // la distance relative entre la valeur de la répartition optimale du stock et la valeur de la répartition de la stratégie gloutonne
+            // la valeur maximum du chemin glouton
+            float g = calculerMAGlouton(G);
+
             D[r] = (v_etoile - g) / (1 + v_etoile);
         }
 
         return D;
     }
 
-    public static void aro(int[][] M, int[][] A, int[][] G){ /* affichage d'une répartition
-	optimale du stock S sur les n entrepôts. G
-	G : tableau des gains (g(i,s) = gain d'une livraison d'un stock s à l'entrepôt i)
-	G est à n lignes et S+1 colonnes où n est le nombre d'entrepôts et S le stock total.
-	M est le tableau de terme général m(k,s) = gain d'une répartition optimale d'un
-	stock s sur le sous-ensemble des k premiers entrepôts. M est à n+1 lignes et S+1 col.
-	A = arg M : a(k,s) = quantité de stock livré au k-ème entrepôt (de numéro k-1)
-	dans une répartition optimale du stock s sur les k premiers entrepôts. */
-        int n = G.length, S = G.length - 1;
-        aro(M,A,G,n,S); // afficher une répartition optimale du stock S sur le
-            // sous-ensemble des n premiers entrepôts. Autrement dit : afficher une
-            // répartition optimale du stock S sur tous les entrepôts (sans contrainte.)
-        }
-    public static void aro(int[][] M, int[][] A, int[][] G, int k, int s){ /* affichage d'une
-		répartition optimale du stock s sur le sous-ensemble des k premiers entrepôts.
-		Notation : ro(k,s) = répartition optimale du stock s sur le sous-ensemble [0:k] */
-            // base = condition d'arrêt
-        if (k == 0) return;
-        // cas général
-        if(M[k][s] == M[k-1][s]) {
-            aro(M, A, G, k - 1, s);
-        }// k-ième objet non pris
-        else if(s-G[k-1][s]>=0 && M[k][s] == M[k-1][s-G[k-1][s]] + G[k-1][s]){
-            aro(M,A,G,k-1,s-G[k-1][s]);
-            System.out.printf("Entrepôt %d : stock : %d, gain : %d\n", k-1, G[k-1][s], G[k-1][s]);
-            }
-        else{
-            aro(M,A,G,k-1,s-G[k-1][s]);
-            System.out.printf("Entrepôt %d : stock : %d, gain : %d\n", k-1, G[k-1][s], G[k-1][s]);
-        }
-        // cas général : appel récursif
-    }
+    /**
+     * Fonction qui calcul le maximum entre deux valeurs
+     * @author René Natowicz
+     * @param x valeur 1
+     * @param y valeur 2
+     * @return le maximum
+     */
+    public int max(int x, int y){ if (x >= y) return x; return y;}
 
-    static int max(int x, int y){ if (x >= y) return x; return y;}
-	static int max(int x, int y, int z){ if (x >= max(y,z)) return x; 
-		if (y >= z) return y; 
-		return z;
-	}	
 
-    void afficher(int[][] T){int n = T.length;
-		for (int i = n-1; i >= 0; i--)
-			System.out.println(Arrays.toString(T[i]));
-	}
-}
+} // fin de classe
 

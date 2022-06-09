@@ -2,15 +2,11 @@ package javafile;
 import java.util.Arrays;
 import java.util.Random;
 
-/*
-Remarque typographique : dans ce qui suit, la notation h_n est "h indice n".
-La notation h_{n-1} est "h indice n-1".
-De façon générale, x_y est "x indice y" et x_{expression} est "x indice expression".
-Cette notation vient du logiciel LaTeX, logiciel de formattage de textes auquel
-je vous encourage à vous auto-former.
-
-Répartition optimale d'un temps de travail -- rene.natowicz@esiee.fr -- 16/03/2022
-*/
+/**
+ * Classe qui permet la résolution de l'exemple 4 du projet sur la répartition optimale d'un temps de travail sur un ensemble d'unités
+ * Certains morceaux de code ont été pris du professeur M. René Natowicz
+ * (le code optimal et les fonctions nécessaires au fonctionnement de l'exercice)
+ */
 public class Juliette {
 
     /**
@@ -37,7 +33,7 @@ public class Juliette {
         // Calcul des valeur m(k,h) par k croissants et mémorisation dans le tableau M.
         // Calcul à la volée des a(k,h) = arg m(k,h) et mémorisation dans le tableau A.
         for (int k = 1; k < n+1; k++) // par tailles k croissantes
-            for (int h = 0; h < H+1; h++){ // calcul des valeurs m(k,h), 0 ≤ h < H+1
+            for (int h = 0; h < H+1; h++){ // calcul des valeurs m(k,h), 0 ≤h < H+1
                 // Calcul de M[k][h] =
                 // ( Max M[k-1][h-h_k] + e(k-1,h_k), h_k, 0 ≤ h_k < h+1 ) - e(k-1,0)
                 M[k][h] = -1;
@@ -54,89 +50,87 @@ public class Juliette {
         return new int[][][] {M, A};
     } // complexité Theta(n x H^2).
 
+    /**
+     * Fonction qui calcul la somme maximale de note gloutonne que Juliette peut avoir en fonction de son temps de travail
+     * @param E tableau de l'estimation des notes des unités en fonction du temps de travail
+     * @param H le nombre d'heures travaillé
+     * @return la somme maximum gloutonne
+     */
     public int calculerMAGlouton(int[][] E, int H) {
         // Initialisation : MGlouton = 0, maximum = 0, gain = 0, j = 0
-        // Invariant : I(MGlouton, maximum, j) --> I(MGlouton + maximum,
-        //                                                  max(G[i][Sauvegarde[i]+1] - G[i][Sauvegarde[i]], gain), i)
-        // Condition d'arrêt : S = 0
+        // Invariant : I(maximum, MGlouton, j) --> I(max(G[i][Save[i]+1] - G[i][Save[i]]), MGlouton + maximum, gain), i)
+        // Condition d'arrêt : H = 0
         int n = E.length; // nombre d'unités
-        //int H = E[0].length - 1; // stock max d'un entrepot (puisque le premier élément de l'entrepôt est égale à 0 parce que quand il n'y pas de stock il n'y aucun gain)
 
         int MGlouton = 0;
-        int[] Sauvegarde = new int[n]; // dans chaque entrepot la quantité de stock qu'il contient
+        int[] Save = new int[n];
 
         int gain;
         int maximum = 0;
         int j;
 
-        // cas si on a que une seule unité
+        // une seule unité
         if(n == 1) return E[0][H];
 
+        // calcul de la note de Juliette lorsqu'elle travail 0 heures
         for (int[] ints : E) {
             MGlouton += ints[0];
         }
 
         // cas général
         while(H != 0) {
-            gain = E[0][Sauvegarde[0]+1] - E[0][Sauvegarde[0]];
+            gain = E[0][Save[0]+1] - E[0][Save[0]];
             j = 0;
 
             for(int i = 1; i < n; i++){
-                maximum = Math.max(E[i][Sauvegarde[i]+1] - E[i][Sauvegarde[i]], gain);
-                if(maximum == E[i][Sauvegarde[i]+1] - E[i][Sauvegarde[i]]){
-                    gain = E[i][Sauvegarde[i]+1] - E[i][Sauvegarde[i]];
+                maximum = Math.max(E[i][Save[i]+1] - E[i][Save[i]], gain);
+                if(maximum == E[i][Save[i]+1] - E[i][Save[i]]){
+                    gain = E[i][Save[i]+1] - E[i][Save[i]];
                     j = i;
                 }
             }
-            Sauvegarde[j] += 1;
+            Save[j] += 1;
             MGlouton += maximum;
             H--;
         }
         return MGlouton;
-    }
+    } // fonction de complexité Θ(n²)
 
+    /**
+     * Fonction qui permet de calculer le tableau de la distance relative entre
+     * la solution optimal et la solution gloutonne lors de chaque runs
+     * @return le tableau de la distance relative entre chaque runs
+     */
     public float[] calculerD() {
-        int Hmax = 1000; // le nombre d'heure max maximum
+        int Hmax = 1000; // nombre d'heures max maximum
         int Nmax = 1000; // nombre maximum d'unité
-        int Nruns = 5000; // nombre de simulations/runs de l'évaluation statistique
+        int Nruns = 5000;
 
-        float[] D = new float[Nruns]; // tableau de la distance relative entre la valeur du chemin de somme maximum et la valeur du chemin glouton pour chaque run
-        Random random = new Random(); // générateur de nombres aléatoires
+        float[] D = new float[Nruns];
+        Random random = new Random();
 
         for (int r = 0; r < Nruns; r++) {
             int H = random.nextInt(Hmax + 1);
             int n = 1 + random.nextInt(Nmax + 1);
 
             int[][] E = estimations(n, H);
-            int[][] E_H = estimationsRestreintes(E,H);
-            int[][][] MA = calculerMA(E_H);
+            int[][][] MA = calculerMA(E);
             int[][] M = MA[0];
 
             float v_etoile = M[n][H];
-            float g = calculerMAGlouton(E_H, H);
+            float g = calculerMAGlouton(E, H);
             D[r] = (v_etoile - g) / (1 + v_etoile);
         }
 
         return D;
     }
 
-    static void aro(int[][] A, int[][] E, int k, int h){
-        // affiche ro(k,h) : répartition optimale de h heures sur les k premières unités.
-        if (k == 0) return; // sans rien faire, ro(0,h) a été affichée.
-        // ici : k > 0
-        // ro(k,h) = ro(k-1,h-a(k,h)) union {"k-1 <-- a(k,h)"}
-        int akh = A[k][h]; // nombre d'heures allouées à la k-ème unité dans ro(k,h)
-        aro(A,E,k-1,h-akh); // ro(k-1,h-akh) a été affichée
-        System.out.printf("unité %d, <-- %d heures, note estimée %d\n",
-                k-1, akh, E[k-1][akh]);
-        // le nombre d'heures allouées à la kème unité a été affiché
-        // Ainsi :
-        // 1) La répartition optimale ro(k-1,h-akh) a été affichée,
-        // 2) "k-1 <-- akh" a été affichée,
-        // 3) donc ro(k,h) = ro(k-1,h-akh) union {"k-1 <-- akh"}
-        // a été affichée.
-    } // Complexité Theta(n).
-
+    /**
+     * Estimation aléatoire des notes en fonctions du nombre d'heures travailler pour chaque unité
+     * @param n le nombre d'unité
+     * @param H le nombre d'heures
+     * @return une estimation des notes
+     */
     public int[][] estimations(int n, int H){ // retourne E[0:n][0:H+1] de terme général
         // E[i][h] = e(i,h). Les estimations sont aléatoires, croissantes selon h.
         int[][] E = new int[n][H+1];
@@ -148,40 +142,14 @@ public class Juliette {
         return E;
     }
 
-    public int[][] estimationsRestreintes(int[][] E, int H){ int n = E.length;
-        // E[0:n][0:Hmax+1]. Cette fonction retourne E[0:n][0:H+1]
-        int[][] E_H = new int[n][H+1];
-        for (int i = 0; i < n; i++)
-            for (int h = 0; h < H+1; h++)
-                E_H[i][h] = E[i][h];
-        return E_H;
-    }
-
-    static void afficher(int[][] E){ int n = E.length, H = E[0].length - 1;
-        // E[0:n][0:H+1] est de terme général E[i][h] = e(i,h), note estimée pour h heures
-        // de révision de l'unité i. Les lignes se terminent par une suite de 20.
-        // Le premier 20 est affiché. Puis ", ...]"
-        // Exemple : [12, 15, 20, 20, 20] --> [12, 15, 20, ...]
-        System.out.println("[");
-        for (int i = 0; i < n; i++) {
-            // recherche du 1er "20"
-            int h = 0;
-            while (h < H+1 && E[i][h] < 20) h++;
-            // E[h:n] = [20, 20, ...]
-            if (h == H+1)
-                System.out.printf("unité %d %s\n",i, Arrays.toString(E[i]));
-            else {
-                int[] Ei = Arrays.copyOfRange(E[i],0,h+1);
-                String Si = Arrays.toString(Ei);
-                int li = Si.length();
-                Si = Si.substring(0,li-1) + ", ...]";
-                System.out.printf("i = %d %s\n",i,Si);
-            }
-        }
-        System.out.println("]");
-    }
-
-    static int min(int x, int y){
+    /**
+     * Fonction qui calcul le minimum entre deux valeurs
+     * @author René Natowicz
+     * @param x valeur 1
+     * @param y valeur 2
+     * @return le minimum
+     */
+    public int min(int x, int y){
         if (x<=y) return x;
         return y;
     }

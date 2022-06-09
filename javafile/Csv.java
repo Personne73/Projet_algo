@@ -3,12 +3,15 @@ package javafile;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
+/**
+ * Classe qui permet l'écriture dans un fichier CSV
+ */
 public class Csv {
     /**
-     * Fonction qui écrit les données dans un fichier csv, une donnée par ligne
-     * @param Filename qui est le nom du fichier
-     * @param data, la liste des données à écrire
+     * Fonction qui écrit les données fourni dans un tableau dans un fichier csv
+     * en respectant la contrainte d'une donnée par ligne
+     * @param Filename le nom du fichier
+     * @param data le tableau des données à écrire
      */
     public void fichierCsv(String Filename, float[] data){
         try{
@@ -21,4 +24,5 @@ public class Csv {
             e.printStackTrace();
         }
     }
-}
+
+} // fin de classe
