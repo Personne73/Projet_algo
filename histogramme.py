@@ -60,29 +60,29 @@ def histogramme(filename, title):
 
 
 def main():
-    #filename = "Chemin_de_somme_maximum"
-    #histogramme(filename, "du chemin de somme maximum")
-    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+    filename = "Chemin_de_somme_maximum"
+    histogramme(filename, "du chemin de somme maximum")
+    print("l'histogramme est dans le fichier " + filename + ".PNG")
 
     filename = "Chemin_du_petit_robot"
     histogramme(filename, "du chemin du petit robot")
     print("l'histogramme est dans le fichier " + filename + ".PNG")
 
-    #filename = "Sac_valeur_maximum_glouton_valeur"
-    #histogramme(filename, "du sac (glouton par valeur)")
-    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+    filename = "Sac_valeur_maximum_glouton_valeur"
+    histogramme(filename, "du sac (glouton par valeur)")
+    print("l'histogramme est dans le fichier " + filename + ".PNG")
 
-    #filename = "Sac_valeur_maximum_glouton_densite_valeur"
-    #histogramme(filename, "du sac (glouton par densité valeur)")
-    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+    filename = "Sac_valeur_maximum_glouton_densite_valeur"
+    histogramme(filename, "du sac (glouton par densité valeur)")
+    print("l'histogramme est dans le fichier " + filename + ".PNG")
 
-    #filename = "Repartition_stock_entrepots"
-    #histogramme(filename, "de la répartition d'un stock")
-    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+    filename = "Repartition_stock_entrepots"
+    histogramme(filename, "de la répartition d'un stock")
+    print("l'histogramme est dans le fichier " + filename + ".PNG")
 
-    #filename = "Repartition_unites_heures"
-    #histogramme(filename, "de la répartition d'un temps de travail")
-    #print("l'histogramme est dans le fichier " + filename + ".PNG")
+    filename = "Repartition_unites_heures"
+    histogramme(filename, "de la répartition d'un temps de travail")
+    print("l'histogramme est dans le fichier " + filename + ".PNG")
 
 
 main()
