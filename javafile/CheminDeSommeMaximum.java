@@ -110,7 +110,7 @@ class CheminDeSommeMaximum {
                 acsm(M, T, droite(i), n);
             }
         }
-    }
+    } // fonction de complexité Θ(ln(n))
 
     /**
      * Fonction qui calcule la valeur d'un chemin glouton
