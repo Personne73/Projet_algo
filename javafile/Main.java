@@ -14,18 +14,18 @@ public class Main {
         EvaluationStatisque eval = new EvaluationStatisque();
 
         // Chemin de somme maximum
-        /*System.out.println("Evaluation statistique pour le chemin de somme maximum : ");
+        System.out.println("Evaluation statistique pour le chemin de somme maximum : ");
         CheminDeSommeMaximum chemin = new CheminDeSommeMaximum();
         float[] Dchemin = chemin.calculerD();
         csv.fichierCsv("data/Chemin_de_somme_maximum.csv", Dchemin);
-        eval.es(Dchemin);*/
+        eval.es(Dchemin);
 
         // Chemin du petit robot
-        /*System.out.println("\n\nEvaluation statistique pour le chemin du petit robot : ");
+        System.out.println("\n\nEvaluation statistique pour le chemin du petit robot : ");
         CheminDuPetitRobot robot = new CheminDuPetitRobot();
         float[] Drobot = robot.calculerD();
         csv.fichierCsv("data/Chemin_du_petit_robot.csv", Drobot);
-        eval.es(Drobot);*/
+        eval.es(Drobot);
 
         // Sac de valeur maximum
         System.out.println("\n\nEvaluation statistique pour le sac de valeur maximum : ");
@@ -41,7 +41,7 @@ public class Main {
         eval.es(Dratio);
 
         // Répartition de stock d'entrepôt
-        /*System.out.println("\n\nEvaluation statistique pour la répartition optimale sur un ensemble d'entrepot : ");
+        System.out.println("\n\nEvaluation statistique pour la répartition optimale sur un ensemble d'entrepot : ");
         RepartitionStockEntrepots repartition = new RepartitionStockEntrepots();
         float[] Drepartition = repartition.calculerD();
         csv.fichierCsv("data/Repartition_stock_entrepots.csv", Drepartition);
@@ -52,7 +52,7 @@ public class Main {
         Juliette unite = new Juliette();
         float[] Dunite = unite.calculerD();
         csv.fichierCsv("data/Repartition_unites_heures.csv", Dunite);
-        eval.es(Dunite);*/
+        eval.es(Dunite);
     }
 
 } // fin de classe
