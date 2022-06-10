@@ -57,7 +57,7 @@ public class SacDeValeurMaximum {
     }
 
     /**
-     * Fonction qui calcul la valeur du sac pour les fonctions calculerMGloutonValeur et calculerMGloutonRatio
+     * Fonction qui calcule la valeur du sac pour les fonctions calculerMGloutonValeur et calculerMGloutonRatio
      * @param C la contenance du sac
      * @param TabObjets le tableau d'objet trié de la façon nécessaire
      * @return la valeur maximale gloutonne du sac
@@ -123,7 +123,7 @@ public class SacDeValeurMaximum {
     }
 
     /**
-     * Fonction qui calcul le maximum entre deux valeurs
+     * Fonction qui calcule le maximum entre deux valeurs
      * @author René Natowicz
      * @param x valeur 1
      * @param y valeur 2
@@ -136,7 +136,7 @@ public class SacDeValeurMaximum {
 
     /**
      * Fonction qui permet de calculer le tableau de la distance relative entre
-     * la solution optimal et la solution gloutonne par valeur lors de chaque runs
+     * la solution optimale et la solution gloutonne par valeurs lors de chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
     public float[] calculerDValeur() {
@@ -172,7 +172,7 @@ public class SacDeValeurMaximum {
 
     /**
      * Fonction qui permet de calculer le tableau de la distance relative entre
-     * la solution optimal et la solution gloutonne par densité de valeurs lors de chaque runs
+     * la solution optimale et la solution gloutonne par densité de valeurs lors de chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
     public float[] calculerDRatio() {

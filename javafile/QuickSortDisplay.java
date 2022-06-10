@@ -3,7 +3,7 @@ package javafile;
 import java.util.Random;
 
 /**
- * Programme quickSort fourni par Monsieur Natowicz en cours, mais légèrement adapté et modifié par nos soins
+ * Programme quickSort fournie par Monsieur Natowicz en cours, mais légèrement adaptée et modifiée par nos soins
  */
 public class QuickSortDisplay {
     public void quickSortDisplay(Doublet[] T){ int n = T.length;

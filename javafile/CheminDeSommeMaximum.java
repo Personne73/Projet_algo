@@ -3,7 +3,7 @@ package javafile;
 import java.util.Random;
 
 /**
- * Classe du projet qui permet la recherche du chemin de somme maximum dans un arbre parfait
+ * Classe du projet qui permet la recherche du chemin de somme maximum dans un arbre parfait.
  * Il s'agit de l'exemple 5 du projet
  */
 class CheminDeSommeMaximum {
@@ -140,7 +140,7 @@ class CheminDeSommeMaximum {
 
     /**
      * Fonction qui permet de calculer le tableau de la distance relative entre
-     * la solution optimal et la solution gloutonne lors de chaque runs
+     * la solution optimale et la solution gloutonne lors de chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
     public float[] calculerD() {

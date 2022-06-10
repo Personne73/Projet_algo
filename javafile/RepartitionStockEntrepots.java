@@ -43,7 +43,7 @@ public class RepartitionStockEntrepots {
     }
 
     /**
-     * Fonction qui calcul le gain maximum selon la répartition gloutonne
+     * Fonction qui calcule le gain maximum selon la répartition gloutonne
      * @param G tableau des gains de chaque entrepôt en fonction du stock
      * @return le gain glouton
      */
@@ -89,7 +89,7 @@ public class RepartitionStockEntrepots {
 
     /**
      * Fonction qui permet de calculer le tableau de la distance relative entre
-     * la solution optimal et la solution gloutonne lors de chaque runs
+     * la solution optimale et la solution gloutonne lors de chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
     public float[] calculerD() {
@@ -131,7 +131,7 @@ public class RepartitionStockEntrepots {
     }
 
     /**
-     * Fonction qui calcul le maximum entre deux valeurs
+     * Fonction qui calcule le maximum entre deux valeurs
      * @author René Natowicz
      * @param x valeur 1
      * @param y valeur 2

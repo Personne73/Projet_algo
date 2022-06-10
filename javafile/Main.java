@@ -32,12 +32,12 @@ public class Main {
         System.out.println("Stratégie gloutonne par valeur décroissante");
         SacDeValeurMaximum sac = new SacDeValeurMaximum();
         float[] Dsac = sac.calculerDValeur();
-        csv.fichierCsv("data/Sac_valeur_maximum_glouton_valeur_1000000.csv", Dsac);
+        csv.fichierCsv("data/Sac_valeur_maximum_glouton_valeur.csv", Dsac);
         eval.es(Dsac);
 
         System.out.println("\nStratégie gloutonne par ratios décroissant : ");
         float[] Dratio = sac.calculerDRatio();
-        csv.fichierCsv("data/Sac_valeur_maximum_glouton_densite_valeur_1000000.csv", Dratio);
+        csv.fichierCsv("data/Sac_valeur_maximum_glouton_densite_valeur.csv", Dratio);
         eval.es(Dratio);
 
         // Répartition de stock d'entrepôt

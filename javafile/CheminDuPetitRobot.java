@@ -70,7 +70,7 @@ public class CheminDuPetitRobot {
 	} // fonction de complexité Θ(n)
 
 	/**
-	 * Fonction qui permet de générer une matrice de coûts aléatoire
+	 * Fonction qui permet de générer une matrice de coûts aléatoires
 	 * @param L le nombre de lignes de la grille
 	 * @param C le nombre de colonnes de la grille
 	 * @param coutMax le coût max pouvant être dans une case

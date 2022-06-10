@@ -50,7 +50,7 @@ public class Juliette {
     } // complexité Theta(n x H^2).
 
     /**
-     * Fonction qui calcul la somme maximale de note gloutonne que Juliette peut avoir en fonction de son temps de travail
+     * Fonction qui calcule la somme maximale de note gloutonne que l'élève peut avoir en fonction de son temps de travail
      * @param E tableau de l'estimation des notes des unités en fonction du temps de travail
      * @param H le nombre d'heures travaillé
      * @return la somme maximum gloutonne
@@ -97,7 +97,7 @@ public class Juliette {
 
     /**
      * Fonction qui permet de calculer le tableau de la distance relative entre
-     * la solution optimal et la solution gloutonne lors de chaque runs
+     * la solution optimale et la solution gloutonne lors de chaque runs
      * @return le tableau de la distance relative entre chaque runs
      */
     public float[] calculerD() {
@@ -125,8 +125,8 @@ public class Juliette {
     }
 
     /**
-     * Estimation aléatoire des notes en fonctions du nombre d'heures travailler pour chaque unité
-     * @param n le nombre d'unité
+     * Estimation aléatoire des notes en fonctions du nombre d'heures travaillées pour chaque unité
+     * @param n le nombre d'unités
      * @param H le nombre d'heures
      * @return une estimation des notes
      */
@@ -142,7 +142,7 @@ public class Juliette {
     }
 
     /**
-     * Fonction qui calcul le minimum entre deux valeurs
+     * Fonction qui calcule le minimum entre deux valeurs
      * @author René Natowicz
      * @param x valeur 1
      * @param y valeur 2

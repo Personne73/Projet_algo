@@ -2,7 +2,7 @@ package javafile;
 
 /**
  * Classe qui permet la création d'un objet javafile.Doublet permettant l'association d'une valeur à sa taille
- * Elle est lié à l'exemple sur le Sac de valeur maximum
+ * Elle est liée à l'exemple sur le Sac de valeur maximum
  */
 public class Doublet {
 
